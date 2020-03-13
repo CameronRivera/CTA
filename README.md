@@ -2,7 +2,6 @@
 ​
 ​
 ## Github Instructions
-​
 Every fellow has been given a private repo for this assessment. Please follow these instructions:
 - Create a private repo 
 - Add us as collaborators Antonio[AntonioFlores1], Aaron[AaronCab], Alex Paul[alexpaul]
@@ -18,7 +17,6 @@ Every fellow has been given a private repo for this assessment. Please follow th
 ​
 ​
 ## App Description
-​
 For this assessment, build an app that allows users to choose from a selection of APIs and pick their favorite items. You should create a Firebase-backed project with the following functionality:
 ​
 - Users can create new accounts. When creating a new account, a user can choose which "experience" they want, as explained in the **API** section below.
@@ -34,7 +32,6 @@ For building your UI, you must build at least one View Controller using a Storyb
 You **must** unit test your models.
 ​
 ## App Features 
-​
 - [ ] Create Login Screen
 - [ ] User should be able to create account
 - [ ] User should be able to login
@@ -54,13 +51,11 @@ You **must** unit test your models.
 *Discalimer Use this checklist to keep track of where you are in the project. For more Detail Instructions refer to the readme 
 ​
 ## Frameworks
-​
 - Use Firebase Auth to manage account creation and signing in.
 - Use Firebase Firestore to manage user accounts and the items that have been favorited.
 ​
 ​
 ## Auth
-​
 - A user should be able to create a new account by entering their email and password, and selecting the experience they wish to have in the app.
 - A user should be able to log in to their account if they already have one.
 - A user should be able to bypass log in if they are still logged in as the current user. You should *persist* that user's preferred experience so that the information can be retrieved when the app loads.
@@ -72,11 +67,9 @@ You **must** unit test your models.
 ​
 ​
 ### Here is a sample entry in a `users` collection:
-​
 ![userEntry](./images/firestoreUserCollection.png)
 ​
 ## APIs
-​
 - A user must be able to select an "experience" when creating their account.
 - When a user selects an experience, information to list in the app should be pulled from the the appropriate API.
 - For each option, a user should have an app experience as outlined below:
@@ -88,7 +81,6 @@ You **must** unit test your models.
 ​
 ​
 ## Rubric
-​
 ![rubricPartOne](./images/rubricPartOne.png)
 ![rubricPartTwo](./images/rubricPartTwo.png)
 ![rubricPartThree](./images/rubricPartThree.png)
@@ -97,7 +89,6 @@ You **must** unit test your models.
 ​
 ​
 ## Login Screen
-​
 - Enter an email address.
 - Enter a password.
 - Log in to an existing account.
@@ -106,7 +97,6 @@ You **must** unit test your models.
 ​
 ​
 ## Create Account Screen
-​
 - Select which API you want to get information from.
 - Create a new account using email and password.
 ​
@@ -114,7 +104,6 @@ You **must** unit test your models.
 ​
 ​
 ## List Items Screen
-​
 - Display a list of data from an API (call these "Things").
 - The navigation title should tell the user what kind of Things they are receiving from online.
 - Entering text in the search bar searches for and displays relevant Things.
@@ -127,14 +116,12 @@ You **must** unit test your models.
 ​
 ​
 ## Item Detail Screen
-​
 - Show additional information about the selected Thing.
 ​
 ![itemDetailScreen](./images/itemDetailScreen.png)
 ​
 ​
 ## Favorite Items Screen
-​
 - Display a list of Things that have been favorited by the user.  
 - The navigation title should tell the user what kind of Things they have favorited.
 - Each cell should contain a favorite button which the user can tap to unfavorite the Thing. Tapping the button should change both the UI and the backend.
@@ -144,7 +131,6 @@ You **must** unit test your models.
 ​
 ​
 ## Stretch
-​
 Add a third tab, Settings, that allows a user to:
 - change their app experience. This should change the user's experience in-app, and update their user model in FireStore.
 - clear all favorites for the current experience.
