@@ -23,3 +23,10 @@ struct UserModelFields {
     public static let email = "email"
     public static let selectedExperience = "selectedExperience"
 }
+
+struct CellsAndIdentifiers{
+    public static let ticketMasterXib = "EventCell"
+    public static let ticketMasterReuseId = "eventCell"
+    public static let rijksMuseumXib = "RijksCell"
+    public static let rijksMuseumReuseId = "rijksCell"
+}

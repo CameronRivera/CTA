@@ -74,13 +74,13 @@ class EventsViewController: UIViewController {
     private func setUpTableView(){
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: "EventCell", bundle: nil), forCellReuseIdentifier: "eventCell")
+        tableView.register(UINib(nibName: CellsAndIdentifiers.ticketMasterXib, bundle: nil), forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
     }
     
     private func setUpCollectionView(){
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(UINib(nibName: "RijksCell", bundle: nil), forCellWithReuseIdentifier: "rijksCell")
+        collectionView.register(UINib(nibName: CellsAndIdentifiers.rijksMuseumXib, bundle: nil), forCellWithReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId)
         if artPieces.count < 1 {
             collectionView.backgroundView = EmptyStateView(title: "No Items", message: "There are no items that match your query. Use the search bar above to search for queries.")
         } else {
@@ -89,7 +89,8 @@ class EventsViewController: UIViewController {
     }
     
     @IBAction func favouritesButtonPressed(_ sender: UIBarButtonItem){
-        
+        let favouritesVC = FavouritesViewController(userExp)
+        navigationController?.pushViewController(favouritesVC, animated: true)
     }
     
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem){
@@ -106,7 +107,7 @@ extension EventsViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let xCell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell else {
+        guard let xCell = tableView.dequeueReusableCell(withIdentifier: CellsAndIdentifiers.ticketMasterReuseId, for: indexPath) as? EventCell else {
             fatalError("Could not dequeue cell as an EventCell.")
         }
         
@@ -125,7 +126,7 @@ extension EventsViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let xCell = collectionView.dequeueReusableCell(withReuseIdentifier: "rijksCell", for: indexPath) as? RijksCell else {
+        guard let xCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId, for: indexPath) as? RijksCell else {
             fatalError("Could not dequeue cell as a RijksCell.")
         }
         

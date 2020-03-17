@@ -12,6 +12,7 @@ class FavouritesView: UIView {
     
     public lazy var tableView: UITableView = {
        let tv = UITableView()
+        tv.backgroundColor = UIColor.systemBackground
         tv.alpha = 0.0
         return tv
     }()
@@ -21,6 +22,7 @@ class FavouritesView: UIView {
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         cv.alpha = 0.0
+        cv.backgroundColor = UIColor.systemBackground
         return cv
     }()
     
