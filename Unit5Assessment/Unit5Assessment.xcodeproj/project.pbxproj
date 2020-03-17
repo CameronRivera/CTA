@@ -12,6 +12,21 @@
 		C41FECE7241E9ECD00BFE89C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECE6241E9ECD00BFE89C /* LoginView.swift */; };
 		C41FECE9241EA0AB00BFE89C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECE8241EA0AB00BFE89C /* Constants.swift */; };
 		C41FECEB241EA0F900BFE89C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECEA241EA0F900BFE89C /* UIViewController+Extensions.swift */; };
+		C41FECED241EC32500BFE89C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECEC241EC32500BFE89C /* NetworkError.swift */; };
+		C41FECEF241EC39100BFE89C /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECEE241EC39100BFE89C /* NetworkHelper.swift */; };
+		C41FECF2241FC83700BFE89C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECF1241FC83700BFE89C /* APIKey.swift */; };
+		C41FECF4241FCD0300BFE89C /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41FECF3241FCD0300BFE89C /* Events.storyboard */; };
+		C41FECF6241FCD9600BFE89C /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECF5241FCD9600BFE89C /* EventsViewController.swift */; };
+		C41FECF8241FCEB000BFE89C /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41FECF7241FCEB000BFE89C /* EventCell.xib */; };
+		C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECF9241FCFC900BFE89C /* EventCell.swift */; };
+		C41FECFC241FD57600BFE89C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECFB241FD57600BFE89C /* AuthenticationService.swift */; };
+		C41FECFE241FE0CA00BFE89C /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECFD241FE0CA00BFE89C /* FirestoreService.swift */; };
+		C41FED00241FE31900BFE89C /* EndUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECFF241FE31900BFE89C /* EndUser.swift */; };
+		C41FED02241FFA2C00BFE89C /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED01241FFA2C00BFE89C /* EmptyStateView.swift */; };
+		C41FED042420073600BFE89C /* SelectUserExpereinceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED032420073600BFE89C /* SelectUserExpereinceView.swift */; };
+		C41FED0624200A4F00BFE89C /* SelectUserExperienceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED0524200A4F00BFE89C /* SelectUserExperienceController.swift */; };
+		C41FED082420324400BFE89C /* RijksCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41FED072420324400BFE89C /* RijksCell.xib */; };
+		C41FED0A2420349400BFE89C /* RijksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED092420349400BFE89C /* RijksCell.swift */; };
 		C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */; };
 		C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */; };
 		C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A69424241D9C5700E6EE82 /* Assets.xcassets */; };
@@ -40,6 +55,21 @@
 		C41FECE6241E9ECD00BFE89C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C41FECE8241EA0AB00BFE89C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C41FECEA241EA0F900BFE89C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		C41FECEC241EC32500BFE89C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		C41FECEE241EC39100BFE89C /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		C41FECF1241FC83700BFE89C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		C41FECF3241FCD0300BFE89C /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
+		C41FECF5241FCD9600BFE89C /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		C41FECF7241FCEB000BFE89C /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
+		C41FECF9241FCFC900BFE89C /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		C41FECFB241FD57600BFE89C /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		C41FECFD241FE0CA00BFE89C /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		C41FECFF241FE31900BFE89C /* EndUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUser.swift; sourceTree = "<group>"; };
+		C41FED01241FFA2C00BFE89C /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		C41FED032420073600BFE89C /* SelectUserExpereinceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserExpereinceView.swift; sourceTree = "<group>"; };
+		C41FED0524200A4F00BFE89C /* SelectUserExperienceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserExperienceController.swift; sourceTree = "<group>"; };
+		C41FED072420324400BFE89C /* RijksCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RijksCell.xib; sourceTree = "<group>"; };
+		C41FED092420349400BFE89C /* RijksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RijksCell.swift; sourceTree = "<group>"; };
 		C4A69418241D9C5300E6EE82 /* Unit5Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unit5Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +127,8 @@
 		C41FECE2241E9DCC00BFE89C /* Firebase Services */ = {
 			isa = PBXGroup;
 			children = (
+				C41FECFB241FD57600BFE89C /* AuthenticationService.swift */,
+				C41FECFD241FE0CA00BFE89C /* FirestoreService.swift */,
 			);
 			path = "Firebase Services";
 			sourceTree = "<group>";
@@ -104,8 +136,18 @@
 		C41FECE3241E9E5000BFE89C /* Network Services */ = {
 			isa = PBXGroup;
 			children = (
+				C41FECEC241EC32500BFE89C /* NetworkError.swift */,
+				C41FECEE241EC39100BFE89C /* NetworkHelper.swift */,
 			);
 			path = "Network Services";
+			sourceTree = "<group>";
+		};
+		C41FECF0241FC82700BFE89C /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				C41FECF1241FC83700BFE89C /* APIKey.swift */,
+			);
+			path = Secrets;
 			sourceTree = "<group>";
 		};
 		C4A6940F241D9C5300E6EE82 = {
@@ -131,6 +173,7 @@
 		C4A6941A241D9C5300E6EE82 /* Unit5Assessment */ = {
 			isa = PBXGroup;
 			children = (
+				C41FECF0241FC82700BFE89C /* Secrets */,
 				C41FECE3241E9E5000BFE89C /* Network Services */,
 				C41FECE2241E9DCC00BFE89C /* Firebase Services */,
 				C4A69445241D9F6300E6EE82 /* Storyboards */,
@@ -170,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				C41FECE4241E9E9B00BFE89C /* LoginViewController.swift */,
+				C41FED0524200A4F00BFE89C /* SelectUserExperienceController.swift */,
+				C41FECF5241FCD9600BFE89C /* EventsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -185,6 +230,10 @@
 		C4A69442241D9EA300E6EE82 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C41FECF7241FCEB000BFE89C /* EventCell.xib */,
+				C41FECF9241FCFC900BFE89C /* EventCell.swift */,
+				C41FED072420324400BFE89C /* RijksCell.xib */,
+				C41FED092420349400BFE89C /* RijksCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -192,6 +241,7 @@
 		C4A69443241D9EAF00E6EE82 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C41FECFF241FE31900BFE89C /* EndUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,6 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				C41FECE6241E9ECD00BFE89C /* LoginView.swift */,
+				C41FED01241FFA2C00BFE89C /* EmptyStateView.swift */,
+				C41FED032420073600BFE89C /* SelectUserExpereinceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A69426241D9C5700E6EE82 /* LaunchScreen.storyboard */,
+				C41FECF3241FCD0300BFE89C /* Events.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -298,7 +351,10 @@
 			files = (
 				C4A69428241D9C5700E6EE82 /* LaunchScreen.storyboard in Resources */,
 				C4A6943E241D9CCE00E6EE82 /* GoogleService-Info.plist in Resources */,
+				C41FECF4241FCD0300BFE89C /* Events.storyboard in Resources */,
+				C41FECF8241FCEB000BFE89C /* EventCell.xib in Resources */,
 				C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */,
+				C41FED082420324400BFE89C /* RijksCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,12 +436,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C41FECEF241EC39100BFE89C /* NetworkHelper.swift in Sources */,
+				C41FED0A2420349400BFE89C /* RijksCell.swift in Sources */,
 				C41FECE9241EA0AB00BFE89C /* Constants.swift in Sources */,
+				C41FECED241EC32500BFE89C /* NetworkError.swift in Sources */,
+				C41FECFE241FE0CA00BFE89C /* FirestoreService.swift in Sources */,
+				C41FECFC241FD57600BFE89C /* AuthenticationService.swift in Sources */,
+				C41FECF2241FC83700BFE89C /* APIKey.swift in Sources */,
+				C41FED00241FE31900BFE89C /* EndUser.swift in Sources */,
 				C41FECE5241E9E9B00BFE89C /* LoginViewController.swift in Sources */,
 				C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */,
+				C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */,
 				C41FECE7241E9ECD00BFE89C /* LoginView.swift in Sources */,
+				C41FED042420073600BFE89C /* SelectUserExpereinceView.swift in Sources */,
 				C41FECEB241EA0F900BFE89C /* UIViewController+Extensions.swift in Sources */,
+				C41FED02241FFA2C00BFE89C /* EmptyStateView.swift in Sources */,
 				C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */,
+				C41FECF6241FCD9600BFE89C /* EventsViewController.swift in Sources */,
+				C41FED0624200A4F00BFE89C /* SelectUserExperienceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

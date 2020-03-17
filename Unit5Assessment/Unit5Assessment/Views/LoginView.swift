@@ -32,6 +32,7 @@ class LoginView: UIView {
         textField.layer.cornerRadius = 10
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1.0
+        textField.autocapitalizationType = .sentences
         return textField
     }()
     

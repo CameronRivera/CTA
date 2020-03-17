@@ -8,6 +8,18 @@
 
 import Foundation
 
+enum AccountState{
+    case existingUser
+    case newUser
+}
+
 struct Constants {
-    
+    public static let usersCollection = "users"
+}
+
+struct UserModelFields {
+    public static let userId = "userId"
+    public static let timeCreated = "timeCreated"
+    public static let email = "email"
+    public static let selectedExperience = "selectedExperience"
 }
