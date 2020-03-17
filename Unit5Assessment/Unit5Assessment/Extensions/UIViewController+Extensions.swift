@@ -10,7 +10,8 @@ import UIKit
 import FirebaseAuth
 
 extension UIViewController{
-    func showAlert(_ title: String?, _ message: String, completion: ((UIAlertAction)->())? = nil){
+    
+    func showAlert(_ title: String?, _ message: String?, completion: ((UIAlertAction)->())? = nil){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: completion)
         alertController.addAction(okAction)
@@ -28,19 +29,14 @@ extension UIViewController{
     }
     
     static func showEventsController(_ user: User){
-        FirestoreService.manager.getUserData(user.uid) { result in
-            switch result{
-            case .failure:
-                break
-            case .success(let user):
-                let storyboard = UIStoryboard(name: "Events", bundle: nil)
-                let eventsVC = storyboard.instantiateViewController(identifier: "EventsViewController") { coder in
-                    return EventsViewController(coder, UserExperience(rawValue: user.selectedExperience) ?? UserExperience.ticketMaster)
-                }
-                let navigationController = UINavigationController(rootViewController: eventsVC)
-                resetWindow(navigationController)
-            }
+        let userDHandler = UserDefaultsHandler()
+        let storyboard = UIStoryboard(name: "Events", bundle: nil)
+        let eventsVC = storyboard.instantiateViewController(identifier: "EventsViewController") { coder in
+            return EventsViewController(coder, userDHandler.getUserExperience(using: user.uid))
         }
+        let navigationController = UINavigationController(rootViewController: eventsVC)
+        resetWindow(navigationController)
+        
     }
     
     static func resetWindow(_ viewController: UIViewController){

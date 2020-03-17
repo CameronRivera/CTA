@@ -27,6 +27,11 @@
 		C41FED0624200A4F00BFE89C /* SelectUserExperienceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED0524200A4F00BFE89C /* SelectUserExperienceController.swift */; };
 		C41FED082420324400BFE89C /* RijksCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41FED072420324400BFE89C /* RijksCell.xib */; };
 		C41FED0A2420349400BFE89C /* RijksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED092420349400BFE89C /* RijksCell.swift */; };
+		C41FED0F24210D8300BFE89C /* UserDefaultsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FED0E24210D8300BFE89C /* UserDefaultsHandler.swift */; };
+		C47A823E2421298B00275C6C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A823D2421298B00275C6C /* SettingsView.swift */; };
+		C47A824024212CB400275C6C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A823F24212CB400275C6C /* SettingsViewController.swift */; };
+		C47A82422421592900275C6C /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82412421592900275C6C /* FavouritesView.swift */; };
+		C47A824424215D5000275C6C /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824324215D5000275C6C /* FavouritesViewController.swift */; };
 		C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */; };
 		C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */; };
 		C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A69424241D9C5700E6EE82 /* Assets.xcassets */; };
@@ -70,6 +75,11 @@
 		C41FED0524200A4F00BFE89C /* SelectUserExperienceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserExperienceController.swift; sourceTree = "<group>"; };
 		C41FED072420324400BFE89C /* RijksCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RijksCell.xib; sourceTree = "<group>"; };
 		C41FED092420349400BFE89C /* RijksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RijksCell.swift; sourceTree = "<group>"; };
+		C41FED0E24210D8300BFE89C /* UserDefaultsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHandler.swift; sourceTree = "<group>"; };
+		C47A823D2421298B00275C6C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C47A823F24212CB400275C6C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C47A82412421592900275C6C /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
+		C47A824324215D5000275C6C /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		C4A69418241D9C5300E6EE82 /* Unit5Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unit5Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +160,14 @@
 			path = Secrets;
 			sourceTree = "<group>";
 		};
+		C41FED0D24210D5E00BFE89C /* DataPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				C41FED0E24210D8300BFE89C /* UserDefaultsHandler.swift */,
+			);
+			path = DataPersistence;
+			sourceTree = "<group>";
+		};
 		C4A6940F241D9C5300E6EE82 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +191,7 @@
 		C4A6941A241D9C5300E6EE82 /* Unit5Assessment */ = {
 			isa = PBXGroup;
 			children = (
+				C41FED0D24210D5E00BFE89C /* DataPersistence */,
 				C41FECF0241FC82700BFE89C /* Secrets */,
 				C41FECE3241E9E5000BFE89C /* Network Services */,
 				C41FECE2241E9DCC00BFE89C /* Firebase Services */,
@@ -215,6 +234,8 @@
 				C41FECE4241E9E9B00BFE89C /* LoginViewController.swift */,
 				C41FED0524200A4F00BFE89C /* SelectUserExperienceController.swift */,
 				C41FECF5241FCD9600BFE89C /* EventsViewController.swift */,
+				C47A823F24212CB400275C6C /* SettingsViewController.swift */,
+				C47A824324215D5000275C6C /* FavouritesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,8 +271,10 @@
 			isa = PBXGroup;
 			children = (
 				C41FECE6241E9ECD00BFE89C /* LoginView.swift */,
-				C41FED01241FFA2C00BFE89C /* EmptyStateView.swift */,
 				C41FED032420073600BFE89C /* SelectUserExpereinceView.swift */,
+				C41FED01241FFA2C00BFE89C /* EmptyStateView.swift */,
+				C47A823D2421298B00275C6C /* SettingsView.swift */,
+				C47A82412421592900275C6C /* FavouritesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -438,17 +461,22 @@
 			files = (
 				C41FECEF241EC39100BFE89C /* NetworkHelper.swift in Sources */,
 				C41FED0A2420349400BFE89C /* RijksCell.swift in Sources */,
+				C47A824024212CB400275C6C /* SettingsViewController.swift in Sources */,
 				C41FECE9241EA0AB00BFE89C /* Constants.swift in Sources */,
 				C41FECED241EC32500BFE89C /* NetworkError.swift in Sources */,
 				C41FECFE241FE0CA00BFE89C /* FirestoreService.swift in Sources */,
+				C47A823E2421298B00275C6C /* SettingsView.swift in Sources */,
+				C41FED0F24210D8300BFE89C /* UserDefaultsHandler.swift in Sources */,
 				C41FECFC241FD57600BFE89C /* AuthenticationService.swift in Sources */,
 				C41FECF2241FC83700BFE89C /* APIKey.swift in Sources */,
 				C41FED00241FE31900BFE89C /* EndUser.swift in Sources */,
 				C41FECE5241E9E9B00BFE89C /* LoginViewController.swift in Sources */,
 				C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */,
+				C47A824424215D5000275C6C /* FavouritesViewController.swift in Sources */,
 				C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */,
 				C41FECE7241E9ECD00BFE89C /* LoginView.swift in Sources */,
 				C41FED042420073600BFE89C /* SelectUserExpereinceView.swift in Sources */,
+				C47A82422421592900275C6C /* FavouritesView.swift in Sources */,
 				C41FECEB241EA0F900BFE89C /* UIViewController+Extensions.swift in Sources */,
 				C41FED02241FFA2C00BFE89C /* EmptyStateView.swift in Sources */,
 				C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */,

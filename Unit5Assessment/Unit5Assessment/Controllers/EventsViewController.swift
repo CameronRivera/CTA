@@ -87,6 +87,16 @@ class EventsViewController: UIViewController {
             collectionView.backgroundView = nil
         }
     }
+    
+    @IBAction func favouritesButtonPressed(_ sender: UIBarButtonItem){
+        
+    }
+    
+    @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem){
+        let settingsVC = SettingsViewController(userExp)
+        settingsVC.delegate = self
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
 }
 
 extension EventsViewController: UITableViewDataSource{
@@ -131,4 +141,12 @@ extension EventsViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+}
+
+extension EventsViewController: SettingsViewControllerDelegate{
+    
+    func userExperienceChanged(_ settingsViewController: SettingsViewController, _ newExp: UserExperience) {
+        userExp = newExp
+    }
+    
 }

@@ -41,4 +41,14 @@ class FirestoreService {
             }
         }
     }
+    
+    public func updateUserExperience(_ userId: String, _ exp: UserExperience, completion: @escaping (Result<Bool,Error>) -> ()){
+        firestoreRef.collection(Constants.usersCollection).document(userId).updateData([UserModelFields.selectedExperience: exp.rawValue]) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
 }

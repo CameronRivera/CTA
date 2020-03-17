@@ -43,7 +43,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="mZU-hg-3AB">
-                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -56,8 +56,16 @@
                         <viewLayoutGuide key="safeArea" id="4eE-Be-4Yd"/>
                     </view>
                     <navigationItem key="navigationItem" id="Yik-J7-858">
-                        <barButtonItem key="leftBarButtonItem" title="Favourites" id="fqC-jb-FyP"/>
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="5Ah-55-Cjp"/>
+                        <barButtonItem key="leftBarButtonItem" title="Favourites" id="fqC-jb-FyP">
+                            <connections>
+                                <action selector="favouritesButtonPressed:" destination="Meb-eC-zzg" id="kC9-VS-XDG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="5Ah-55-Cjp">
+                            <connections>
+                                <action selector="settingsButtonPressed:" destination="Meb-eC-zzg" id="Xwb-Y2-XrX"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="xbZ-xe-fjd" id="dHk-KX-snw"/>
@@ -66,6 +74,24 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aG8-PW-mde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1889.8550724637682" y="101.78571428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2VR-D0-tfb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t3c-SP-8hQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LZV-TM-885">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Meb-eC-zzg" kind="relationship" relationship="rootViewController" id="UPQ-Bm-ij1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e88-Ki-Bwb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="979.71014492753636" y="101.78571428571428"/>
         </scene>

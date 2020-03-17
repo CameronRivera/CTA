@@ -16,6 +16,7 @@ class SelectUserExperienceController: UIViewController {
     private var selectedExperience = UserExperience.ticketMaster
     private let userEmail: String
     private let userPassword: String
+    private let userDefaultsHandler = UserDefaultsHandler()
     
     init(_ userEmail: String, _ userPassword: String){
         self.userEmail = userEmail
@@ -62,6 +63,7 @@ class SelectUserExperienceController: UIViewController {
                             self?.showAlert("Authentication Error", error.localizedDescription)
                         }
                     case .success:
+                        self?.userDefaultsHandler.setExperience(self?.selectedExperience ?? UserExperience.rijksMuseum, authData.user.uid)
                         self?.sceneChange()
                     }
                 }

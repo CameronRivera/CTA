@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 
+// Note: Maybe place a neither case that allows us to handle errors?
 enum UserExperience: String{
     case ticketMaster = "TicketMaster"
     case rijksMuseum = "RijksMuseum"
