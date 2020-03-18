@@ -16,7 +16,7 @@ class EventsViewController: UIViewController {
     
     private var userExp: UserExperience
     
-    private var events = [String](){
+    private var events = [Event](){
         didSet{
             DispatchQueue.main.async{
                 self.tableView.reloadData()
@@ -24,7 +24,7 @@ class EventsViewController: UIViewController {
         }
     }
     
-    private var artPieces = [String](){
+    private var artPieces = [ArtPiece](){
         didSet{
             DispatchQueue.main.async{
                 self.collectionView.reloadData()
@@ -81,6 +81,7 @@ class EventsViewController: UIViewController {
     
     private func setUpCollectionView(){
         searchBar.showsScopeBar = false
+        searchBar.scopeButtonTitles = []
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: CellsAndIdentifiers.rijksMuseumXib, bundle: nil), forCellWithReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId)
@@ -119,19 +120,7 @@ extension EventsViewController: UITableViewDataSource{
     
     private func processSearchQuery(_ query: String){
         if userExp == .ticketMaster{
-            switch searchBar.selectedScopeButtonIndex{
-            case 0:
-                let urlString = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&keyword=\(TicketMasterAPI.percentEncoding(query))"
-                processURLString(urlString)
-            case 1:
-                let urlString = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&City=\(TicketMasterAPI.percentEncoding(query))"
-                processURLString(urlString)
-            case 2:
-                let urlString = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&postalCode=\(TicketMasterAPI.percentEncoding(query))"
-                processURLString(urlString)
-            default:
-                break
-            }
+            processURLString(TicketMasterAPI.processSearchQuery(query, searchBar.selectedScopeButtonIndex))
         } else if userExp == .rijksMuseum {
             RijksMuseumAPI.getPieces(query) { [weak self] result in
                 switch result{

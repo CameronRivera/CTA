@@ -32,12 +32,13 @@ class FavouritesViewController: UIViewController {
     }
     
     private func setUp(){
-        navigationItem.title = "Favourites"
         view.backgroundColor = UIColor.systemBackground
         
         if userExp == .rijksMuseum{
+            navigationItem.title = "Favourites: \(userExp.rawValue)"
             setUpCollectionView()
         } else if userExp == .ticketMaster{
+            navigationItem.title = "Favourites: \(userExp.rawValue)"
             setUpTableView()
         }
     }

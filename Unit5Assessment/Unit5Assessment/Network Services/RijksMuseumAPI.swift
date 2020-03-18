@@ -10,7 +10,7 @@ import UIKit
 
 struct RijksMuseumAPI {
     
-    static func getPieces(_ query: String, completion: @escaping (Result<String,NetworkError>) -> ()){
+    static func getPieces(_ query: String, completion: @escaping (Result<[ArtPiece],NetworkError>) -> ()){
         
         let urlString = "https://www.rijksmuseum.nl/api/en/collection?key=\(APIKey.rijksAPIKey)&q=\(RijksMuseumAPI.percentEncoding(query))"
         
@@ -26,7 +26,8 @@ struct RijksMuseumAPI {
                 completion(.failure(.networkClientError(netError)))
             case .success(let data):
                 do {
-                    //let pieces = try JSONDecoder().decode(<#T##type: Decodable.Protocol##Decodable.Protocol#>, from: data)
+                    let pieces = try JSONDecoder().decode(ArtPieceWrapper.self, from: data)
+                    completion(.success(pieces.artObjects))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }
@@ -34,7 +35,7 @@ struct RijksMuseumAPI {
         }
     }
     
-    static func getDetailedPieces(_ objectNumber: String, completion: @escaping (Result<String,NetworkError>) -> ()){
+    static func getDetailedPieces(_ objectNumber: String, completion: @escaping (Result<DetailedArtPiece,NetworkError>) -> ()){
         
         let urlString = "https://www.rijksmuseum.nl/api/en/collection/\(objectNumber)?key=\(APIKey.rijksAPIKey)"
         guard let url = URL(string: urlString) else {
@@ -49,7 +50,8 @@ struct RijksMuseumAPI {
                 completion(.failure(.networkClientError(netError)))
             case .success(let data):
                 do {
-                    //let detailedPieces = try JSONDecoder().decode(<#T##type: Decodable.Protocol##Decodable.Protocol#>, from: data)
+                    let detailedPiece = try JSONDecoder().decode(DetailedArtPieceWrapper.self, from: data)
+                    completion(.success(detailedPiece.artObject))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }

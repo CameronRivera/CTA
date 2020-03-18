@@ -10,7 +10,7 @@ import UIKit
 
 struct TicketMasterAPI {
     
-    static func getEvents(_ urlString: String, completion: @escaping (Result<String,NetworkError>) -> ()) {
+    static func getEvents(_ urlString: String, completion: @escaping (Result<[Event],NetworkError>) -> ()) {
         
         guard let url = URL(string: urlString) else {
             completion(.failure(.badURL(urlString)))
@@ -24,7 +24,8 @@ struct TicketMasterAPI {
                 completion(.failure(.networkClientError(netError)))
             case .success(let data):
                 do {
-                    //let events = try JSONDecoder().decode(<#T##type: Decodable.Protocol##Decodable.Protocol#>, from: data)
+                    let events = try JSONDecoder().decode(EventWrapper.self, from: data)
+                    completion(.success(events.events))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }
@@ -32,7 +33,7 @@ struct TicketMasterAPI {
         }
     }
 
-    static func getDetailedEventInfo(_ eventId: String, completion: @escaping (Result<String,NetworkError>) -> ()){
+    static func getDetailedEventInfo(_ eventId: String, completion: @escaping (Result<DetailedEvent,NetworkError>) -> ()){
         let urlString = "https://app.ticketmaster.com/discovery/v2/events/\(eventId).json?apikey=\(APIKey.ticketMasterKey)"
         
         guard let url = URL(string: urlString) else {
@@ -47,11 +48,25 @@ struct TicketMasterAPI {
                 completion(.failure(.networkClientError(netError)))
             case .success(let data):
                 do {
-                    //let detailedEvent = try JSONDecoder().decode(<#T##type: Decodable.Protocol##Decodable.Protocol#>, from: data)
+                    let detailedEvent = try JSONDecoder().decode(DetailedEvent.self, from: data)
+                    completion(.success(detailedEvent))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }
             }
+        }
+    }
+    
+    static func processSearchQuery(_ query: String, _ index: Int) -> String{
+        switch index{
+        case 0:
+            return  "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&keyword=\(TicketMasterAPI.percentEncoding(query))"
+        case 1:
+            return "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&City=\(TicketMasterAPI.percentEncoding(query))"
+        case 2:
+            return "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&postalCode=\(TicketMasterAPI.percentEncoding(query))"
+        default:
+            return ""
         }
     }
     

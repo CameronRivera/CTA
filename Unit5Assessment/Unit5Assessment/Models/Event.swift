@@ -8,6 +8,25 @@
 
 import Foundation
 
-struct Event{
+struct eventTopLevel: Decodable{
+    let embedded: EventWrapper
     
+    enum CodingKeys: String, CodingKey{
+        case embedded = "_embedded"
+    }
+}
+
+struct EventWrapper: Decodable{
+    let events: [Event]
+}
+
+struct Event: Decodable{
+    let name: String
+    let id: String
+    let images: [Pic]
+    let dates: EventDate
+}
+
+struct Pic: Decodable{
+    let url: String
 }

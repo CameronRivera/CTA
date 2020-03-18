@@ -8,6 +8,27 @@
 
 import Foundation
 
-struct DetailedArtPiece{
-    
+struct DetailedArtPieceWrapper: Decodable {
+    let artObject: DetailedArtPiece
+}
+
+struct DetailedArtPiece: Decodable{
+    let id: String
+    let objectNumber: String
+    let title: String
+    let webImage: WebPic?
+    let principalMakers: [Maker]
+    let plaqueDescriptionDutch: String?
+    let plaqueDescriptionEnglish: String?
+}
+
+struct Maker: Codable{
+    let name: String
+    let placeOfBirth: String?
+    let dateOfBirth: String?
+    let dateOfDeath: String?
+    let placeOfDeath: String?
+    let occupation: [String]
+    let roles: [String]
+    let nationality: String
 }
