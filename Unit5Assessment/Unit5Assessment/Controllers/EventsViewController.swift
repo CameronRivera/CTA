@@ -34,7 +34,7 @@ class EventsViewController: UIViewController {
     
     private var searchQuery = "" {
         didSet{
-            
+            processSearchQuery(searchQuery.lowercased())
         }
     }
     
@@ -72,12 +72,15 @@ class EventsViewController: UIViewController {
     }
     
     private func setUpTableView(){
+        searchBar.showsScopeBar = true
+        searchBar.scopeButtonTitles = ["Keyword","City","Postal Code"]
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: CellsAndIdentifiers.ticketMasterXib, bundle: nil), forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
     }
     
     private func setUpCollectionView(){
+        searchBar.showsScopeBar = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: CellsAndIdentifiers.rijksMuseumXib, bundle: nil), forCellWithReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId)
@@ -113,6 +116,50 @@ extension EventsViewController: UITableViewDataSource{
         
         return xCell
     }
+    
+    private func processSearchQuery(_ query: String){
+        if userExp == .ticketMaster{
+            switch searchBar.selectedScopeButtonIndex{
+            case 0:
+                let urlString = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&keyword=\(TicketMasterAPI.percentEncoding(query))"
+                processURLString(urlString)
+            case 1:
+                let urlString = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&City=\(TicketMasterAPI.percentEncoding(query))"
+                processURLString(urlString)
+            case 2:
+                let urlString = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&postalCode=\(TicketMasterAPI.percentEncoding(query))"
+                processURLString(urlString)
+            default:
+                break
+            }
+        } else if userExp == .rijksMuseum {
+            RijksMuseumAPI.getPieces(query) { [weak self] result in
+                switch result{
+                case .failure(let netError):
+                    DispatchQueue.main.async{
+                        self?.showAlert("Pieces Retrieval Error", netError.localizedDescription)
+                    }
+                case .success(let pieces):
+                    // Note: Get the pieces after you make a model
+                    break
+                }
+            }
+        }
+    }
+    
+    private func processURLString(_ urlString: String){
+        TicketMasterAPI.getEvents(urlString) { [weak self] result in
+            switch result{
+            case .failure(let netError):
+                DispatchQueue.main.async{
+                    self?.showAlert("Error Retrieving Events", netError.localizedDescription)
+                }
+            case .success(let events):
+                // Note: Get the events after you have a model
+                break
+            }
+        }
+    }
 }
 
 extension EventsViewController: UITableViewDelegate{
@@ -140,6 +187,11 @@ extension EventsViewController: UICollectionViewDelegateFlowLayout{
 
 extension EventsViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let sbText = searchBar.text, !sbText.isEmpty else {
+            showAlert("Invalid Search Query", nil)
+            return
+        }
+        searchQuery = sbText
         searchBar.resignFirstResponder()
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 struct APIKey{
-    let rijksAPIKey = "HzKc8B8G"
-    let ticketMasterKey = "cqxUXZPxIWKNEm1Knk1oZnADrkbZKH5x"
-    let tickerMasterSecret = "l46Drf3MjiKwoIGL"
+    static let rijksAPIKey = "HzKc8B8G"
+    static let ticketMasterKey = "cqxUXZPxIWKNEm1Knk1oZnADrkbZKH5x"
+    static let tickerMasterSecret = "l46Drf3MjiKwoIGL"
 }

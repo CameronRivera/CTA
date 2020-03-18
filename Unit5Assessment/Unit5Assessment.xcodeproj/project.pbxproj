@@ -32,6 +32,12 @@
 		C47A824024212CB400275C6C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A823F24212CB400275C6C /* SettingsViewController.swift */; };
 		C47A82422421592900275C6C /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82412421592900275C6C /* FavouritesView.swift */; };
 		C47A824424215D5000275C6C /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824324215D5000275C6C /* FavouritesViewController.swift */; };
+		C47A82462421981700275C6C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82452421981700275C6C /* Event.swift */; };
+		C47A82482421982500275C6C /* ArtPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82472421982500275C6C /* ArtPiece.swift */; };
+		C47A824A2421985900275C6C /* DetailedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82492421985900275C6C /* DetailedEvent.swift */; };
+		C47A824C2421986700275C6C /* DetailedArtPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824B2421986700275C6C /* DetailedArtPiece.swift */; };
+		C47A824E24219BDB00275C6C /* TicketMasterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824D24219BDB00275C6C /* TicketMasterAPI.swift */; };
+		C47A825024219BE900275C6C /* RijksMuseumAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824F24219BE900275C6C /* RijksMuseumAPI.swift */; };
 		C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */; };
 		C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */; };
 		C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A69424241D9C5700E6EE82 /* Assets.xcassets */; };
@@ -80,6 +86,12 @@
 		C47A823F24212CB400275C6C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C47A82412421592900275C6C /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		C47A824324215D5000275C6C /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		C47A82452421981700275C6C /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		C47A82472421982500275C6C /* ArtPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtPiece.swift; sourceTree = "<group>"; };
+		C47A82492421985900275C6C /* DetailedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedEvent.swift; sourceTree = "<group>"; };
+		C47A824B2421986700275C6C /* DetailedArtPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedArtPiece.swift; sourceTree = "<group>"; };
+		C47A824D24219BDB00275C6C /* TicketMasterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketMasterAPI.swift; sourceTree = "<group>"; };
+		C47A824F24219BE900275C6C /* RijksMuseumAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RijksMuseumAPI.swift; sourceTree = "<group>"; };
 		C4A69418241D9C5300E6EE82 /* Unit5Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unit5Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +160,8 @@
 			children = (
 				C41FECEC241EC32500BFE89C /* NetworkError.swift */,
 				C41FECEE241EC39100BFE89C /* NetworkHelper.swift */,
+				C47A824D24219BDB00275C6C /* TicketMasterAPI.swift */,
+				C47A824F24219BE900275C6C /* RijksMuseumAPI.swift */,
 			);
 			path = "Network Services";
 			sourceTree = "<group>";
@@ -263,6 +277,10 @@
 			isa = PBXGroup;
 			children = (
 				C41FECFF241FE31900BFE89C /* EndUser.swift */,
+				C47A82452421981700275C6C /* Event.swift */,
+				C47A82472421982500275C6C /* ArtPiece.swift */,
+				C47A82492421985900275C6C /* DetailedEvent.swift */,
+				C47A824B2421986700275C6C /* DetailedArtPiece.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -459,8 +477,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47A825024219BE900275C6C /* RijksMuseumAPI.swift in Sources */,
 				C41FECEF241EC39100BFE89C /* NetworkHelper.swift in Sources */,
 				C41FED0A2420349400BFE89C /* RijksCell.swift in Sources */,
+				C47A82482421982500275C6C /* ArtPiece.swift in Sources */,
 				C47A824024212CB400275C6C /* SettingsViewController.swift in Sources */,
 				C41FECE9241EA0AB00BFE89C /* Constants.swift in Sources */,
 				C41FECED241EC32500BFE89C /* NetworkError.swift in Sources */,
@@ -475,12 +495,16 @@
 				C47A824424215D5000275C6C /* FavouritesViewController.swift in Sources */,
 				C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */,
 				C41FECE7241E9ECD00BFE89C /* LoginView.swift in Sources */,
+				C47A824C2421986700275C6C /* DetailedArtPiece.swift in Sources */,
+				C47A82462421981700275C6C /* Event.swift in Sources */,
 				C41FED042420073600BFE89C /* SelectUserExpereinceView.swift in Sources */,
 				C47A82422421592900275C6C /* FavouritesView.swift in Sources */,
 				C41FECEB241EA0F900BFE89C /* UIViewController+Extensions.swift in Sources */,
+				C47A824E24219BDB00275C6C /* TicketMasterAPI.swift in Sources */,
 				C41FED02241FFA2C00BFE89C /* EmptyStateView.swift in Sources */,
 				C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */,
 				C41FECF6241FCD9600BFE89C /* EventsViewController.swift in Sources */,
+				C47A824A2421985900275C6C /* DetailedEvent.swift in Sources */,
 				C41FED0624200A4F00BFE89C /* SelectUserExperienceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

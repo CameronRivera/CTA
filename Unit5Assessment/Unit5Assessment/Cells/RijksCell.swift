@@ -14,5 +14,10 @@ class RijksCell: UICollectionViewCell{
     @IBOutlet weak var artPieceTitleLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
     
+    private var imageURL = ""
+    
+    public func configureCell(){
+        
+    }
     
 }

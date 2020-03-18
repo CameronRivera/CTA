@@ -14,4 +14,10 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var additionalInfoLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
     
+    private var imageURL = ""
+    
+    public func configureCell(){
+        
+    }
+    
 }
