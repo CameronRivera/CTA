@@ -19,7 +19,7 @@ class FirestoreService {
     }
     
     public func createNewUser(_ user: EndUser, completion: @escaping (Result<Bool,Error>) -> ()){
-        firestoreRef.collection(Constants.usersCollection).document(user.userId).setData(user.dictionary) { error in
+        firestoreRef.collection(CollectionName.usersCollection).document(user.userId).setData(user.dictionary) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -30,7 +30,7 @@ class FirestoreService {
     
     public func getUserData(_ userId: String, completion: @escaping (Result<EndUser,Error>) -> ()){
         
-        firestoreRef.collection(Constants.usersCollection).whereField(UserModelFields.userId, isEqualTo: userId).getDocuments { (snapshot, error) in
+        firestoreRef.collection(CollectionName.usersCollection).whereField(UserModelFields.userId, isEqualTo: userId).getDocuments { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
             } else if let snapshot = snapshot {
@@ -43,12 +43,35 @@ class FirestoreService {
     }
     
     public func updateUserExperience(_ userId: String, _ exp: UserExperience, completion: @escaping (Result<Bool,Error>) -> ()){
-        firestoreRef.collection(Constants.usersCollection).document(userId).updateData([UserModelFields.selectedExperience: exp.rawValue]) { error in
+        firestoreRef.collection(CollectionName.usersCollection).document(userId).updateData([UserModelFields.selectedExperience: exp.rawValue]) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
                 completion(.success(true))
             }
+        }
+    }
+    
+    public func addFavourite(_ event: EventFavourite? = nil, _ artPiece: ArtFavourite? = nil, completion: @escaping (Result<Bool,Error>) -> ()){
+        
+        if let event = event {
+            firestoreRef.collection(CollectionName.eventFavouritesCollection).document(event.eventId).setData(event.dictionary) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(true))
+                }
+            }
+            
+        } else if let art = artPiece {
+            firestoreRef.collection(CollectionName.artFavouritesCollection).document(art.objectNumber).setData(art.dictionary) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(true))
+                }
+            }
+            
         }
     }
 }

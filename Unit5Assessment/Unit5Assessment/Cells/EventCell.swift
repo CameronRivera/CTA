@@ -122,6 +122,10 @@ class EventCell: UITableViewCell {
         }
     }
     
+    public func configureFavourite(_ fav: EventFavourite){
+        
+    }
+    
     @objc
     private func favouriteButtonPressed(_ sender: UIButton){
         

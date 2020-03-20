@@ -9,9 +9,24 @@
 import UIKit
 
 class FavouritesViewController: UIViewController {
-
+    
     private let favouritesView = FavouritesView()
     private let userExp: UserExperience
+    private var eventFavourites = [EventFavourite](){
+        didSet{
+            DispatchQueue.main.async{
+                self.favouritesView.tableView.reloadData()
+            }
+        }
+    }
+    
+    private var artFavourites = [ArtFavourite](){
+        didSet{
+            DispatchQueue.main.async{
+                self.favouritesView.collectionView.reloadData()
+            }
+        }
+    }
     
     init(_ userExp: UserExperience){
         self.userExp = userExp
@@ -58,8 +73,19 @@ class FavouritesViewController: UIViewController {
         favouritesView.collectionView.dataSource = self
         favouritesView.collectionView.delegate = self
         favouritesView.collectionView.register(UINib(nibName: CellsAndIdentifiers.rijksMuseumXib, bundle: nil), forCellWithReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId)
+        checkForEmptyState()
     }
-
+    
+    private func checkForEmptyState(){
+        
+        if eventFavourites.count > 0 {
+            favouritesView.collectionView.backgroundView = nil
+        } else {
+            favouritesView.collectionView.backgroundView = EmptyStateView(title: "No Favourites", message: "Try searching for some art pieces in the search screen.")
+        }
+        
+    }
+    
 }
 
 extension FavouritesViewController: UITableViewDataSource{
@@ -73,7 +99,7 @@ extension FavouritesViewController: UITableViewDataSource{
             fatalError("Could not dequeue cell as an EventCell")
         }
         
-        //xCell.configureCell()
+        xCell.configureFavourite(eventFavourites[indexPath.row])
         return xCell
     }
 }
@@ -85,7 +111,7 @@ extension FavouritesViewController: UITableViewDelegate{
 extension FavouritesViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return eventFavourites.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,7 +119,7 @@ extension FavouritesViewController: UICollectionViewDataSource{
             fatalError("Could not dequeue cell as a RijksCell")
         }
         
-        // xCell.configureCell()
+        //xCell.configureCell()
         return xCell
     }
 }

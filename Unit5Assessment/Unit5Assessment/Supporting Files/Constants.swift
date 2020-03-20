@@ -13,8 +13,10 @@ enum AccountState{
     case newUser
 }
 
-struct Constants {
+struct CollectionName {
     public static let usersCollection = "users"
+    public static let eventFavouritesCollection = "eventFavourites"
+    public static let artFavouritesCollection = "artFavourites"
 }
 
 struct UserModelFields {
@@ -22,6 +24,23 @@ struct UserModelFields {
     public static let timeCreated = "timeCreated"
     public static let email = "email"
     public static let selectedExperience = "selectedExperience"
+}
+
+struct EventFavouriteFields {
+    public static let eventId = "eventId"
+    public static let imageURL = "imageURL"
+    public static let title = "title"
+    public static let startDate = "startDate"
+    public static let favouritedById = "favouritedById"
+}
+
+struct ArtFavouriteFields {
+    public static let objectNumber = "objectNumber"
+    public static let title = "title"
+    public static let maker = "maker"
+    public static let longTitle = "longTitle"
+    public static let imageURL = "imageURL"
+    public static let favouritedById = "favouritedById"
 }
 
 struct CellsAndIdentifiers{
