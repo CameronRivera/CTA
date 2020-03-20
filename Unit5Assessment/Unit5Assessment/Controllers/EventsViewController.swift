@@ -9,7 +9,7 @@
 import UIKit
 
 class EventsViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -18,8 +18,14 @@ class EventsViewController: UIViewController {
     
     private var events = [Event](){
         didSet{
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
+            if events.count > 0{
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            } else {
+                DispatchQueue.main.async{
+                    self.showAlert("No Matching Events", "No events matched your query. Try again with a different query.")
+                }
             }
         }
     }
@@ -76,7 +82,7 @@ class EventsViewController: UIViewController {
         searchBar.scopeButtonTitles = ["Keyword","City","Postal Code"]
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: CellsAndIdentifiers.ticketMasterXib, bundle: nil), forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
+        tableView.register(EventCell.self, forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
     }
     
     private func setUpCollectionView(){
@@ -89,6 +95,36 @@ class EventsViewController: UIViewController {
             collectionView.backgroundView = EmptyStateView(title: "No Items", message: "There are no items that match your query. Use the search bar above to search for queries.")
         } else {
             collectionView.backgroundView = nil
+        }
+    }
+    
+    private func processSearchQuery(_ query: String){
+        if userExp == .ticketMaster{
+            processURLString(TicketMasterAPI.processSearchQuery(query, searchBar.selectedScopeButtonIndex))
+        } else if userExp == .rijksMuseum {
+            RijksMuseumAPI.getPieces(query) { [weak self] result in
+                switch result{
+                case .failure(let netError):
+                    DispatchQueue.main.async{
+                        self?.showAlert("Pieces Retrieval Error", "\(netError)")
+                    }
+                case .success(let pieces):
+                    self?.artPieces = pieces
+                }
+            }
+        }
+    }
+    
+    private func processURLString(_ urlString: String){
+        TicketMasterAPI.getEvents(urlString) { [weak self] result in
+            switch result{
+            case .failure(let netError):
+                DispatchQueue.main.async{
+                    self?.showAlert("Events Retrieval Error", "\(netError)")
+                }
+            case .success(let events):
+                self?.events = events
+            }
         }
     }
     
@@ -115,44 +151,16 @@ extension EventsViewController: UITableViewDataSource{
             fatalError("Could not dequeue cell as an EventCell.")
         }
         
+        xCell.delegate = self
+        xCell.configureCell(events[indexPath.row])
         return xCell
-    }
-    
-    private func processSearchQuery(_ query: String){
-        if userExp == .ticketMaster{
-            processURLString(TicketMasterAPI.processSearchQuery(query, searchBar.selectedScopeButtonIndex))
-        } else if userExp == .rijksMuseum {
-            RijksMuseumAPI.getPieces(query) { [weak self] result in
-                switch result{
-                case .failure(let netError):
-                    DispatchQueue.main.async{
-                        self?.showAlert("Pieces Retrieval Error", netError.localizedDescription)
-                    }
-                case .success(let pieces):
-                    // Note: Get the pieces after you make a model
-                    break
-                }
-            }
-        }
-    }
-    
-    private func processURLString(_ urlString: String){
-        TicketMasterAPI.getEvents(urlString) { [weak self] result in
-            switch result{
-            case .failure(let netError):
-                DispatchQueue.main.async{
-                    self?.showAlert("Error Retrieving Events", netError.localizedDescription)
-                }
-            case .success(let events):
-                // Note: Get the events after you have a model
-                break
-            }
-        }
     }
 }
 
 extension EventsViewController: UITableViewDelegate{
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
+    }
 }
 
 extension EventsViewController: UICollectionViewDataSource{
@@ -165,7 +173,6 @@ extension EventsViewController: UICollectionViewDataSource{
         guard let xCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId, for: indexPath) as? RijksCell else {
             fatalError("Could not dequeue cell as a RijksCell.")
         }
-        
         return xCell
     }
 }
@@ -175,6 +182,7 @@ extension EventsViewController: UICollectionViewDelegateFlowLayout{
 }
 
 extension EventsViewController: UISearchBarDelegate{
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let sbText = searchBar.text, !sbText.isEmpty else {
             showAlert("Invalid Search Query", nil)
@@ -183,12 +191,22 @@ extension EventsViewController: UISearchBarDelegate{
         searchQuery = sbText
         searchBar.resignFirstResponder()
     }
+    
 }
 
 extension EventsViewController: SettingsViewControllerDelegate{
     
     func userExperienceChanged(_ settingsViewController: SettingsViewController, _ newExp: UserExperience) {
         userExp = newExp
+    }
+    
+}
+
+extension EventsViewController: EventCellDelegate{
+
+    func favouriteButtonPressed(_ eventCell: EventCell, currentEvent: Event) {
+        // Write code to send favourite to database. Also, write a favourite model.
+        // Maybe put a listener on the favourite view as well.
     }
     
 }

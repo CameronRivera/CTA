@@ -83,4 +83,56 @@ class Unit5AssessmentTests: XCTestCase {
         }
         wait(for: [exp], timeout: 3.0)
     }
+    
+    func testGetEvents(){
+        // Arrange
+        let exp = expectation(description: "Return Chicago white sox game")
+        let endpoint = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&City=\(TicketMasterAPI.percentEncoding("chicago"))"
+        
+        // Act
+        TicketMasterAPI.getEvents(endpoint) { result in
+            switch result {
+            case .failure(let error):
+                XCTFail("\(error)")
+            case .success(let events):
+                //Assert
+                exp.fulfill()
+                if let firstEvent = events.first {
+                    XCTAssertEqual(firstEvent.name, "Chicago White Sox vs. New York Yankees")
+                }
+            }
+        }
+        wait(for: [exp], timeout: 3.0)
+    }
+    
+    func testGetDetailedEvent(){
+        // Arrange
+        let exp = expectation(description: "Return event named Eagles")
+        let expectedEventTitle = "Eagles"
+        
+        // Act
+        TicketMasterAPI.getDetailedEventInfo("G5vzZ4g6yyBHk") { result in
+            switch result{
+            case .failure(let netError):
+                XCTFail(netError.localizedDescription)
+            case .success(let detailedEvent):
+                // Assert
+                exp.fulfill()
+                XCTAssertEqual(expectedEventTitle, detailedEvent.name)
+            }
+        }
+        wait(for: [exp], timeout: 3.0)
+    }
+// Note: Ask about further clarification of Database Model testing.
+//    func testEndUserModel(){
+//        // Arrange
+//        let endUserEmail = "Cameron@domain.com"
+//
+//        // Act
+//        let user = EndUser(userId: "", timeCreated: Timestamp(date: Date()), email: "Cameron@domain.com", selectedExperience: "")
+//
+//        // Assert
+//        XCTAssertEqual(user.email, endUserEmail)
+//
+//    }
 }

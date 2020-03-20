@@ -16,7 +16,7 @@ struct DetailedEvent: Decodable{
     let dates: EventDate
     let promoter: Promoter
     let priceRanges: [Price]
-    let accessibility: Access
+    let accessibility: Access?
     let ticketLimit: Limit
 }
 
@@ -26,8 +26,8 @@ struct EventDate: Decodable{
 
 struct StartEventDate: Decodable{
     let localDate: String // YYYY-MM-DD
-    let localTime: String
-    let dateTime: String // e.g. "2020-08-15T23:10:00Z"
+    let localTime: String?
+    let dateTime: String? // e.g. "2020-08-15T23:10:00Z"
 }
 
 struct Promoter: Decodable{
@@ -39,8 +39,8 @@ struct Promoter: Decodable{
 struct Price: Decodable{
     let type: String
     let currency: String
-    let min: String
-    let max: String
+    let min: Double
+    let max: Double
 }
 
 struct Access: Decodable{

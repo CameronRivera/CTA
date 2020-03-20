@@ -38,6 +38,8 @@
 		C47A824C2421986700275C6C /* DetailedArtPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824B2421986700275C6C /* DetailedArtPiece.swift */; };
 		C47A824E24219BDB00275C6C /* TicketMasterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824D24219BDB00275C6C /* TicketMasterAPI.swift */; };
 		C47A825024219BE900275C6C /* RijksMuseumAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A824F24219BE900275C6C /* RijksMuseumAPI.swift */; };
+		C47A82562424109100275C6C /* UIImageView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82552424109100275C6C /* UIImageView+extensions.swift */; };
+		C47A82582424715E00275C6C /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82572424715E00275C6C /* DateConverter.swift */; };
 		C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */; };
 		C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */; };
 		C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A69424241D9C5700E6EE82 /* Assets.xcassets */; };
@@ -92,6 +94,8 @@
 		C47A824B2421986700275C6C /* DetailedArtPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedArtPiece.swift; sourceTree = "<group>"; };
 		C47A824D24219BDB00275C6C /* TicketMasterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketMasterAPI.swift; sourceTree = "<group>"; };
 		C47A824F24219BE900275C6C /* RijksMuseumAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RijksMuseumAPI.swift; sourceTree = "<group>"; };
+		C47A82552424109100275C6C /* UIImageView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extensions.swift"; sourceTree = "<group>"; };
+		C47A82572424715E00275C6C /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		C4A69418241D9C5300E6EE82 /* Unit5Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unit5Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 				C4A69424241D9C5700E6EE82 /* Assets.xcassets */,
 				C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */,
 				C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */,
+				C47A82572424715E00275C6C /* DateConverter.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				C41FECEA241EA0F900BFE89C /* UIViewController+Extensions.swift */,
+				C47A82552424109100275C6C /* UIImageView+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -336,6 +342,7 @@
 				C4A6942A241D9C5700E6EE82 /* Sources */,
 				C4A6942B241D9C5700E6EE82 /* Frameworks */,
 				C4A6942C241D9C5700E6EE82 /* Resources */,
+				E47927E10B9A8030E1B4528C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -453,6 +460,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E47927E10B9A8030E1B4528C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Unit5AssessmentTests/Pods-Unit5AssessmentTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Unit5AssessmentTests/Pods-Unit5AssessmentTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Unit5AssessmentTests/Pods-Unit5AssessmentTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F69E4956A2CBEC53A75B8EAD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -488,6 +512,7 @@
 				C47A823E2421298B00275C6C /* SettingsView.swift in Sources */,
 				C41FED0F24210D8300BFE89C /* UserDefaultsHandler.swift in Sources */,
 				C41FECFC241FD57600BFE89C /* AuthenticationService.swift in Sources */,
+				C47A82562424109100275C6C /* UIImageView+extensions.swift in Sources */,
 				C41FECF2241FC83700BFE89C /* APIKey.swift in Sources */,
 				C41FED00241FE31900BFE89C /* EndUser.swift in Sources */,
 				C41FECE5241E9E9B00BFE89C /* LoginViewController.swift in Sources */,
@@ -496,6 +521,7 @@
 				C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */,
 				C41FECE7241E9ECD00BFE89C /* LoginView.swift in Sources */,
 				C47A824C2421986700275C6C /* DetailedArtPiece.swift in Sources */,
+				C47A82582424715E00275C6C /* DateConverter.swift in Sources */,
 				C47A82462421981700275C6C /* Event.swift in Sources */,
 				C41FED042420073600BFE89C /* SelectUserExpereinceView.swift in Sources */,
 				C47A82422421592900275C6C /* FavouritesView.swift in Sources */,
@@ -695,7 +721,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9E38B93D113B4DBF6D57ED5B /* Pods-Unit5AssessmentTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D2PJ2UC46;
@@ -718,7 +743,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BDD641AE25351272D7911F50 /* Pods-Unit5AssessmentTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D2PJ2UC46;

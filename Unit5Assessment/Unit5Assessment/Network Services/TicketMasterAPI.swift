@@ -24,8 +24,8 @@ struct TicketMasterAPI {
                 completion(.failure(.networkClientError(netError)))
             case .success(let data):
                 do {
-                    let events = try JSONDecoder().decode(EventWrapper.self, from: data)
-                    completion(.success(events.events))
+                    let events = try JSONDecoder().decode(EventTopLevel.self, from: data)
+                    completion(.success(events.embedded.events))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }
@@ -60,9 +60,9 @@ struct TicketMasterAPI {
     static func processSearchQuery(_ query: String, _ index: Int) -> String{
         switch index{
         case 0:
-            return  "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&keyword=\(TicketMasterAPI.percentEncoding(query))"
+            return  "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&keyword=\(TicketMasterAPI.percentEncoding(query))"
         case 1:
-            return "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)x&City=\(TicketMasterAPI.percentEncoding(query))"
+            return "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&City=\(TicketMasterAPI.percentEncoding(query))"
         case 2:
             return "https://app.ticketmaster.com/discovery/v2/events.json?apikey=\(APIKey.ticketMasterKey)&postalCode=\(TicketMasterAPI.percentEncoding(query))"
         default:

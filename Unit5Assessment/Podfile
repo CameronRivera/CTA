@@ -1,20 +1,31 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '13.0'
 
-target 'Unit5Assessment' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+# The podfile is written in Ruby (language).
 
-  # Pods for Unit5Assessment
+# This is needed to run third party libraries such as Firebase
+use_frameworks!
+
+# Create a function in Ruby: Starts with def, and ends with end
+# Underscores are convention for Ruby
+# Have the default pods for the project
+def project_pods
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Storage'
   pod 'Kingfisher'
+end
 
-  target 'Unit5AssessmentTests' do
-    inherit! :search_paths
-    # Pods for testing
+# Project currently has two targets
+# Project Target - Xcode -> new project
+# Unit Test Target
+
+target 'Unit5Assessment' do
+  # Call the project_pods function
+  project_pods
   end
 
-end
+target 'Unit5AssessmentTests' do
+  project_pods
+  end

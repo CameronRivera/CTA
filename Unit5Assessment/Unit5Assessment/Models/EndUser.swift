@@ -45,3 +45,10 @@ struct EndUser{
         ]
     }
 }
+
+extension EndUser {
+    var getAuthUser: User? {
+        guard let user = Auth.auth().currentUser else { return nil }
+        return user
+    }
+}

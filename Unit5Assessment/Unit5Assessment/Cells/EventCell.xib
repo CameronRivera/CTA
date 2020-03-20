@@ -57,12 +57,6 @@
                     <constraint firstAttribute="bottomMargin" secondItem="iSg-ax-ORD" secondAttribute="bottom" constant="8" id="n79-Mc-A5A"/>
                 </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="additionalInfoLabel" destination="jdp-26-Hau" id="kff-BJ-6Mh"/>
-                <outlet property="eventImage" destination="iSg-ax-ORD" id="iFf-9W-gqh"/>
-                <outlet property="eventNameLabel" destination="e2V-ws-rCg" id="zqJ-WO-505"/>
-                <outlet property="favouriteButton" destination="5uy-Sp-yYc" id="VZo-eD-yJ9"/>
-            </connections>
             <point key="canvasLocation" x="-105.79710144927537" y="111.49553571428571"/>
         </tableViewCell>
     </objects>

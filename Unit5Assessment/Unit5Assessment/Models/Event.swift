@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct eventTopLevel: Decodable{
+struct EventTopLevel: Decodable{
     let embedded: EventWrapper
     
     enum CodingKeys: String, CodingKey{

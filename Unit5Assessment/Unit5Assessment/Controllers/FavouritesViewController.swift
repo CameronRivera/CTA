@@ -48,7 +48,7 @@ class FavouritesViewController: UIViewController {
         favouritesView.tableView.alpha = 1.0
         favouritesView.tableView.dataSource = self
         favouritesView.tableView.delegate = self
-        favouritesView.tableView.register(UINib(nibName: CellsAndIdentifiers.ticketMasterXib, bundle: nil), forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
+        favouritesView.tableView.register(EventCell.self, forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
     }
     
     private func setUpCollectionView(){
