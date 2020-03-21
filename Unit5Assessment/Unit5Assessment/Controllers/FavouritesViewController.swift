@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class FavouritesViewController: UIViewController {
     
     private let favouritesView = FavouritesView()
     private let userExp: UserExperience
+    private var listener: ListenerRegistration?
     private var eventFavourites = [EventFavourite](){
         didSet{
             DispatchQueue.main.async{
@@ -46,6 +49,39 @@ class FavouritesViewController: UIViewController {
         setUp()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let user = Auth.auth().currentUser else { return }
+        if userExp == .ticketMaster {
+            listener = Firestore.firestore().collection(CollectionName.eventFavouritesCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+                if let error = error {
+                    DispatchQueue.main.async{
+                        self?.showAlert("Listener Error", error.localizedDescription)
+                    }
+                } else if let snapshot = snapshot {
+                    let eventFavs = snapshot.documents.compactMap{EventFavourite(using:$0.data())}.filter{$0.favouritedById == user.uid}
+                    self?.eventFavourites = eventFavs
+                }
+            })
+        } else if userExp == .rijksMuseum {
+            listener = Firestore.firestore().collection(CollectionName.artFavouritesCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+                if let error = error {
+                    DispatchQueue.main.async{
+                        self?.showAlert("Listener Error", error.localizedDescription)
+                    }
+                } else if let snapshot = snapshot{
+                    let artFavourites = snapshot.documents.compactMap{ArtFavourite(using:$0.data())}.filter{$0.favouritedById == user.uid}
+                    self?.artFavourites = artFavourites
+                }
+            })
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        listener?.remove()
+    }
+    
     private func setUp(){
         view.backgroundColor = UIColor.systemBackground
         
@@ -67,7 +103,6 @@ class FavouritesViewController: UIViewController {
     }
     
     private func setUpCollectionView(){
-        //Note: Set up an empty state for this.
         favouritesView.tableView.alpha = 0.0
         favouritesView.collectionView.alpha = 1.0
         favouritesView.collectionView.dataSource = self
@@ -83,7 +118,6 @@ class FavouritesViewController: UIViewController {
         } else {
             favouritesView.collectionView.backgroundView = EmptyStateView(title: "No Favourites", message: "Try searching for some art pieces in the search screen.")
         }
-        
     }
     
 }
@@ -105,6 +139,10 @@ extension FavouritesViewController: UITableViewDataSource{
 }
 
 extension FavouritesViewController: UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
+    }
     
 }
 

@@ -13,6 +13,11 @@ enum AccountState{
     case newUser
 }
 
+enum TypeOfView{
+    case table
+    case collection
+}
+
 struct CollectionName {
     public static let usersCollection = "users"
     public static let eventFavouritesCollection = "eventFavourites"

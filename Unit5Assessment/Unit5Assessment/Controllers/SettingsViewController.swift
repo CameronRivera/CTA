@@ -67,7 +67,8 @@ class SettingsViewController: UIViewController {
         do {
             try Auth.auth().signOut()
             let loginVC = LoginViewController()
-            UIViewController.showViewController(storyboardName: nil, viewControllerId: nil, viewController: loginVC)
+            let navigationController = UINavigationController(rootViewController: loginVC)
+            UIViewController.showViewController(storyboardName: nil, viewControllerId: nil, viewController: navigationController)
         } catch {
             showAlert("Sign Out Error",error.localizedDescription)
         }

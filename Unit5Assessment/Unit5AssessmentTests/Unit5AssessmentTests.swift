@@ -7,9 +7,15 @@
 //
 
 import XCTest
+import Firebase
 @testable import Unit5Assessment
 
 class Unit5AssessmentTests: XCTestCase {
+    
+    override func setUp(){
+        super.setUp()
+        FirebaseApp.configure()
+    }
 
     func testNetworkHelper(){
         // Arrange
@@ -123,16 +129,30 @@ class Unit5AssessmentTests: XCTestCase {
         }
         wait(for: [exp], timeout: 3.0)
     }
-// Note: Ask about further clarification of Database Model testing.
-//    func testEndUserModel(){
-//        // Arrange
-//        let endUserEmail = "Cameron@domain.com"
-//
-//        // Act
-//        let user = EndUser(userId: "", timeCreated: Timestamp(date: Date()), email: "Cameron@domain.com", selectedExperience: "")
-//
-//        // Assert
-//        XCTAssertEqual(user.email, endUserEmail)
-//
-//    }
+    
+    func testEndUserModel(){
+        // Arrange
+        let endUserEmail = "Cameron@domain.com"
+
+        // Act
+        let user = EndUser(userId: "", timeCreated: Timestamp(date: Date()), email: "Cameron@domain.com", selectedExperience: "")
+
+        // Assert
+        XCTAssertEqual(user.email, endUserEmail)
+
+    }
+    
+    func testAuthentication() {
+        // Arrange
+        let endUserEmail = "cameron@domain.com"
+        
+        // Act
+        guard let user = Auth.auth().currentUser else {
+            XCTFail("Could not get user.")
+            return
+        }
+        
+        // Assert
+        XCTAssertEqual(endUserEmail, user.email ?? "")
+    }
 }

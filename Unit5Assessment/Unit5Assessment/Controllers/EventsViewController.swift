@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class EventsViewController: UIViewController {
-    
+    // Note: to self, make specific errors for scope. What I mean is, remember to write a valid alert error when the user searches for an event using the wrong method in the wrong scope.
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -20,6 +21,7 @@ class EventsViewController: UIViewController {
         didSet{
             if events.count > 0{
                 DispatchQueue.main.async{
+                    self.tableView.separatorStyle = .singleLine
                     self.tableView.reloadData()
                 }
             } else {
@@ -83,6 +85,8 @@ class EventsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(EventCell.self, forCellReuseIdentifier: CellsAndIdentifiers.ticketMasterReuseId)
+        checkForEmptyState(events, .table)
+        
     }
     
     private func setUpCollectionView(){
@@ -91,11 +95,7 @@ class EventsViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: CellsAndIdentifiers.rijksMuseumXib, bundle: nil), forCellWithReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId)
-        if artPieces.count < 1 {
-            collectionView.backgroundView = EmptyStateView(title: "No Items", message: "There are no items that match your query. Use the search bar above to search for queries.")
-        } else {
-            collectionView.backgroundView = nil
-        }
+        checkForEmptyState(artPieces, .collection)
     }
     
     private func processSearchQuery(_ query: String){
@@ -125,6 +125,35 @@ class EventsViewController: UIViewController {
             case .success(let events):
                 self?.events = events
             }
+        }
+    }
+    
+    private func checkForEmptyState<T>(_ arr: [T], _ view: TypeOfView){
+        if view == .collection && arr.count < 1 {
+            collectionView.backgroundView = EmptyStateView(title: "No Items", message: "There are no items that match your query. Use the search bar above to search for queries.")
+        } else if view == .table && arr.count < 1 {
+            tableView.separatorStyle = .none
+            tableView.backgroundView = EmptyStateView(title: "No Items", message: "There are no items that match your query. Use the search bar above to search for queries.")
+        }
+    }
+    
+    private func addToFavourites(_ event: EventFavourite? = nil, _ eventCell: EventCell? = nil, _ artPiece: ArtFavourite? = nil, _ rijksCell: RijksCell? = nil){
+        if let event = event, let eventCell = eventCell {
+            FirestoreService.manager.addFavourite(event, nil) { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async{
+                        self?.showAlert("Favourite Error", error.localizedDescription)
+                    }
+                case .success:
+                    DispatchQueue.main.async{
+                        self?.showAlert("Event Added to Favourites", nil)
+                        eventCell.favouriteButton.setBackgroundImage(UIImage(systemName: "moon.fill"), for: .normal)
+                    }
+                }
+            }
+        } else if let art = artPiece{
+            
         }
     }
     
@@ -205,8 +234,41 @@ extension EventsViewController: SettingsViewControllerDelegate{
 extension EventsViewController: EventCellDelegate{
 
     func favouriteButtonPressed(_ eventCell: EventCell, currentEvent: Event) {
-        // Write code to send favourite to database. Also, write a favourite model.
-        // Maybe put a listener on the favourite view as well.
+        
+        guard let user = Auth.auth().currentUser else { return }
+        
+        let newFavourite = EventFavourite(eventId: currentEvent.id, imageURL: currentEvent.images.first?.url ?? "" , title: currentEvent.name, startDate: currentEvent.dates.start.localDate, favouritedById: user.uid)
+        
+        FirestoreService.manager.isInFavourites(currentEvent.id, UserExperience.ticketMaster) { [weak self]result in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async{
+                    self?.showAlert("Error", error.localizedDescription)
+                }
+            case .success(let exists):
+                // Note: Consider putting this in another function
+                if exists{
+                    FirestoreService.manager.removeFromFavourites(currentEvent.id, UserExperience.ticketMaster) { [weak self] result in
+                        switch result {
+                        case .failure(let error):
+                            DispatchQueue.main.async{
+                                self?.showAlert("Removal Error", error.localizedDescription)
+                            }
+                        case .success(let removed):
+                            if removed{
+                                DispatchQueue.main.async{
+                                    self?.showAlert("Unfavourited Event", nil)
+                                    eventCell.favouriteButton.setBackgroundImage(UIImage(systemName: "moon"), for: .normal)
+                                }
+                            } 
+                        }
+                    }
+                } else {
+                    self?.addToFavourites(newFavourite, eventCell, nil, nil)
+                }
+            }
+        }
+
     }
     
 }

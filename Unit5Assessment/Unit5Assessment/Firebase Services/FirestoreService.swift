@@ -74,4 +74,57 @@ class FirestoreService {
             
         }
     }
+    
+    public func isInFavourites(_ id: String, _ typeOfFavourite: UserExperience, completion: @escaping (Result<Bool, Error>) -> ()){
+        guard let user = Auth.auth().currentUser else { return }
+        
+        if typeOfFavourite == UserExperience.ticketMaster {
+            firestoreRef.collection(CollectionName.eventFavouritesCollection).whereField(EventFavouriteFields.favouritedById, isEqualTo: user.uid).getDocuments { (snapshot, error) in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let snapshot = snapshot{
+                    let docs = snapshot.documents.compactMap{EventFavourite(using:$0.data())}.filter{$0.eventId == id}
+                    if docs.count > 0 {
+                        completion(.success(true))
+                    } else {
+                        completion(.success(false))
+                    }
+                }
+            }
+        } else if typeOfFavourite == UserExperience.rijksMuseum{
+            firestoreRef.collection(CollectionName.artFavouritesCollection).whereField(ArtFavouriteFields.favouritedById, isEqualTo: user.uid).getDocuments { (snapshot, error) in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let snapshot = snapshot {
+                    let docs = snapshot.documents.compactMap{EventFavourite(using:$0.data())}.filter{$0.eventId == id}
+                    if docs.count > 0 {
+                        completion(.success(true))
+                    } else {
+                        completion(.success(false))
+                    }
+                }
+            }
+        }
+    }
+    
+    public func removeFromFavourites(_ id: String, _ typeOfFavourite: UserExperience, completion: @escaping (Result<Bool,Error>) -> () ){
+        
+        if typeOfFavourite == UserExperience.ticketMaster{
+            firestoreRef.collection(CollectionName.eventFavouritesCollection).document(id).delete { error in
+                if let error = error {
+                    completion(.failure(error))
+                }else {
+                    completion(.success(true))
+                }
+            }
+        } else if typeOfFavourite == UserExperience.rijksMuseum{
+            firestoreRef.collection(CollectionName.artFavouritesCollection).document(id).delete { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(true))
+                }
+            }
+        }
+    }
 }

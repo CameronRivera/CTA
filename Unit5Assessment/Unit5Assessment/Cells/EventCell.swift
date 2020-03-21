@@ -19,7 +19,7 @@ class EventCell: UITableViewCell {
     public weak var delegate: EventCellDelegate?
     
     public lazy var eventImageView: UIImageView = {
-      let iv = UIImageView()
+        let iv = UIImageView()
         iv.image = UIImage(systemName: "questionmark")
         iv.contentMode = .scaleAspectFit
         return iv
@@ -99,10 +99,18 @@ class EventCell: UITableViewCell {
     
     public func configureCell(_ event: Event){
         currentEvent = event
-        eventTitle.text = event.name
-        startDateLabel.text = DateConverter.makeMyStringIntoAHumanDate(event.dates.start.localDate) 
-        if let pic = event.images.first?.url{
-            imageURL = pic
+        updateUI(event.name, event.dates.start.localDate, event.images.first?.url, event.id)
+    }
+    
+    public func configureFavourite(_ fav: EventFavourite){
+        updateUI(fav.title, fav.startDate, fav.startDate, fav.eventId)
+    }
+    
+    public func updateUI(_ title: String, _ date: String, _ imageURL: String?,_ id: String){
+        eventTitle.text = title
+        startDateLabel.text = DateConverter.makeMyStringIntoAHumanDate(date)
+        if let pic = imageURL{
+            self.imageURL = pic
             eventImageView.getImage(pic) { [weak self]result in
                 switch result{
                 case .failure:
@@ -120,10 +128,22 @@ class EventCell: UITableViewCell {
         } else {
             eventImageView.image = UIImage(systemName: "questionmark")
         }
-    }
-    
-    public func configureFavourite(_ fav: EventFavourite){
-        
+        FirestoreService.manager.isInFavourites(id,UserExperience.ticketMaster) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let exists):
+                if exists {
+                    DispatchQueue.main.async{
+                        self?.favouriteButton.setBackgroundImage(UIImage(systemName:"moon.fill"), for: .normal)
+                    }
+                } else {
+                    DispatchQueue.main.async{
+                        self?.favouriteButton.setBackgroundImage(UIImage(systemName:"moon"), for: .normal)
+                    }
+                }
+            }
+        }
     }
     
     @objc

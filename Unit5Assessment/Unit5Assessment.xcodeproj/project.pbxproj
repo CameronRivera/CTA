@@ -17,7 +17,6 @@
 		C41FECF2241FC83700BFE89C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECF1241FC83700BFE89C /* APIKey.swift */; };
 		C41FECF4241FCD0300BFE89C /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41FECF3241FCD0300BFE89C /* Events.storyboard */; };
 		C41FECF6241FCD9600BFE89C /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECF5241FCD9600BFE89C /* EventsViewController.swift */; };
-		C41FECF8241FCEB000BFE89C /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41FECF7241FCEB000BFE89C /* EventCell.xib */; };
 		C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECF9241FCFC900BFE89C /* EventCell.swift */; };
 		C41FECFC241FD57600BFE89C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECFB241FD57600BFE89C /* AuthenticationService.swift */; };
 		C41FECFE241FE0CA00BFE89C /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41FECFD241FE0CA00BFE89C /* FirestoreService.swift */; };
@@ -75,7 +74,6 @@
 		C41FECF1241FC83700BFE89C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C41FECF3241FCD0300BFE89C /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
 		C41FECF5241FCD9600BFE89C /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
-		C41FECF7241FCEB000BFE89C /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
 		C41FECF9241FCFC900BFE89C /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		C41FECFB241FD57600BFE89C /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		C41FECFD241FE0CA00BFE89C /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 		C4A69442241D9EA300E6EE82 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				C41FECF7241FCEB000BFE89C /* EventCell.xib */,
 				C41FECF9241FCFC900BFE89C /* EventCell.swift */,
 				C41FED072420324400BFE89C /* RijksCell.xib */,
 				C41FED092420349400BFE89C /* RijksCell.swift */,
@@ -406,7 +403,6 @@
 				C4A69428241D9C5700E6EE82 /* LaunchScreen.storyboard in Resources */,
 				C4A6943E241D9CCE00E6EE82 /* GoogleService-Info.plist in Resources */,
 				C41FECF4241FCD0300BFE89C /* Events.storyboard in Resources */,
-				C41FECF8241FCEB000BFE89C /* EventCell.xib in Resources */,
 				C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */,
 				C41FED082420324400BFE89C /* RijksCell.xib in Resources */,
 			);
