@@ -14,7 +14,7 @@ class EmptyStateView: UIView {
        let label = UILabel()
         label.textAlignment = .center
         label.textColor = UIColor.black
-        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 4
         return label
     }()
@@ -23,7 +23,7 @@ class EmptyStateView: UIView {
        let label = UILabel()
         label.textAlignment = .center
         label.textColor = UIColor.black
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 1
         return label
     }()

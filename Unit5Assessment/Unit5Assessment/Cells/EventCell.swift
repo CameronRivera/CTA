@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol EventCellDelegate: AnyObject{
-    func favouriteButtonPressed(_ eventCell: EventCell, currentEvent: Event)
+    func encounteredError(_ err: Error)
+    func addedToFavourites(_ message: String)
+    func removedFromFavourites(_ message: String)
 }
 
 class EventCell: UITableViewCell {
     
     private var imageURL = ""
     private var currentEvent: Event?
+    private var currentFavourite: EventFavourite?
     public weak var delegate: EventCellDelegate?
     
     public lazy var eventImageView: UIImageView = {
@@ -103,7 +107,8 @@ class EventCell: UITableViewCell {
     }
     
     public func configureFavourite(_ fav: EventFavourite){
-        updateUI(fav.title, fav.startDate, fav.startDate, fav.eventId)
+        currentFavourite = fav
+        updateUI(fav.title, fav.startDate, fav.imageURL, fav.eventId)
     }
     
     public func updateUI(_ title: String, _ date: String, _ imageURL: String?,_ id: String){
@@ -111,7 +116,7 @@ class EventCell: UITableViewCell {
         startDateLabel.text = DateConverter.makeMyStringIntoAHumanDate(date)
         if let pic = imageURL{
             self.imageURL = pic
-            eventImageView.getImage(pic) { [weak self]result in
+            eventImageView.getImage(pic) { [weak self] result in
                 switch result{
                 case .failure:
                     DispatchQueue.main.async{
@@ -131,7 +136,7 @@ class EventCell: UITableViewCell {
         FirestoreService.manager.isInFavourites(id,UserExperience.ticketMaster) { [weak self] result in
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.delegate?.encounteredError(error)
             case .success(let exists):
                 if exists {
                     DispatchQueue.main.async{
@@ -148,9 +153,52 @@ class EventCell: UITableViewCell {
     
     @objc
     private func favouriteButtonPressed(_ sender: UIButton){
+        guard let user = Auth.auth().currentUser else { return }
         
         if let currentEvent = currentEvent{
-            delegate?.favouriteButtonPressed(self, currentEvent: currentEvent)
+            let newFavourite = EventFavourite(eventId: currentEvent.id, imageURL: currentEvent.images.first?.url ?? "", title: currentEvent.name, startDate: currentEvent.dates.start.localDate, favouritedById: user.uid)
+            areYouAFavourite(newFavourite)
+        } else if let fav = currentFavourite{
+            areYouAFavourite(fav)
+        }
+    }
+    
+    private func areYouAFavourite(_ favourite: EventFavourite){
+        FirestoreService.manager.isInFavourites(favourite.eventId, UserExperience.ticketMaster) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.delegate?.encounteredError(error)
+            case .success(let exists):
+                if exists{
+                    self?.removeFromFavourites(favourite)
+                } else {
+                    self?.addToFavourites(favourite)
+                }
+            }
+        }
+    }
+    
+    private func addToFavourites(_ favourite: EventFavourite){
+        FirestoreService.manager.addFavourite(favourite, nil) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.delegate?.encounteredError(error)
+            case .success:
+                self?.delegate?.addedToFavourites("Event Added to Favourites")
+                self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon.fill"), for: .normal)
+            }
+        }
+    }
+    
+    private func removeFromFavourites(_ favourite: EventFavourite){
+        FirestoreService.manager.removeFromFavourites(favourite.eventId, UserExperience.ticketMaster) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.delegate?.encounteredError(error)
+            case .success:
+                self?.delegate?.removedFromFavourites("Event Removed from Favourites")
+                self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon"), for: .normal)
+            }
         }
     }
     

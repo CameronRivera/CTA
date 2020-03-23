@@ -22,6 +22,7 @@ class EventsViewController: UIViewController {
             if events.count > 0{
                 DispatchQueue.main.async{
                     self.tableView.separatorStyle = .singleLine
+                    self.tableView.backgroundView = nil
                     self.tableView.reloadData()
                 }
             } else {
@@ -34,8 +35,15 @@ class EventsViewController: UIViewController {
     
     private var artPieces = [ArtPiece](){
         didSet{
-            DispatchQueue.main.async{
-                self.collectionView.reloadData()
+            if artPieces.count > 0{
+                DispatchQueue.main.async{
+                    self.collectionView.backgroundView = nil
+                    self.collectionView.reloadData()
+                }
+            } else {
+                DispatchQueue.main.async{
+                    self.showAlert("No Matching Pieces", "No art pieces matched your query. Try again with a different query.")
+                }
             }
         }
     }
@@ -66,10 +74,12 @@ class EventsViewController: UIViewController {
             tableView.isHidden = true
             collectionView.isHidden = false
             setUpCollectionView()
+            collectionView.reloadData()
         } else {
             tableView.isHidden = false
             collectionView.isHidden = true
             setUpTableView()
+            tableView.reloadData()
         }
     }
     
@@ -137,26 +147,6 @@ class EventsViewController: UIViewController {
         }
     }
     
-    private func addToFavourites(_ event: EventFavourite? = nil, _ eventCell: EventCell? = nil, _ artPiece: ArtFavourite? = nil, _ rijksCell: RijksCell? = nil){
-        if let event = event, let eventCell = eventCell {
-            FirestoreService.manager.addFavourite(event, nil) { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    DispatchQueue.main.async{
-                        self?.showAlert("Favourite Error", error.localizedDescription)
-                    }
-                case .success:
-                    DispatchQueue.main.async{
-                        self?.showAlert("Event Added to Favourites", nil)
-                        eventCell.favouriteButton.setBackgroundImage(UIImage(systemName: "moon.fill"), for: .normal)
-                    }
-                }
-            }
-        } else if let art = artPiece{
-            
-        }
-    }
-    
     @IBAction func favouritesButtonPressed(_ sender: UIBarButtonItem){
         let favouritesVC = FavouritesViewController(userExp)
         navigationController?.pushViewController(favouritesVC, animated: true)
@@ -202,12 +192,22 @@ extension EventsViewController: UICollectionViewDataSource{
         guard let xCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsAndIdentifiers.rijksMuseumReuseId, for: indexPath) as? RijksCell else {
             fatalError("Could not dequeue cell as a RijksCell.")
         }
+        xCell.configureCell(artPieces[indexPath.row])
+        xCell.delegate = self
+        xCell.layer.borderColor = UIColor.black.cgColor
+        xCell.layer.borderWidth = 1.0
         return xCell
     }
 }
 
 extension EventsViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.size.width * 0.8, height: collectionView.bounds.size.height * 0.6)
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
 }
 
 extension EventsViewController: UISearchBarDelegate{
@@ -227,48 +227,38 @@ extension EventsViewController: SettingsViewControllerDelegate{
     
     func userExperienceChanged(_ settingsViewController: SettingsViewController, _ newExp: UserExperience) {
         userExp = newExp
+        searchBar.text = ""
     }
     
 }
 
 extension EventsViewController: EventCellDelegate{
 
-    func favouriteButtonPressed(_ eventCell: EventCell, currentEvent: Event) {
-        
-        guard let user = Auth.auth().currentUser else { return }
-        
-        let newFavourite = EventFavourite(eventId: currentEvent.id, imageURL: currentEvent.images.first?.url ?? "" , title: currentEvent.name, startDate: currentEvent.dates.start.localDate, favouritedById: user.uid)
-        
-        FirestoreService.manager.isInFavourites(currentEvent.id, UserExperience.ticketMaster) { [weak self]result in
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async{
-                    self?.showAlert("Error", error.localizedDescription)
-                }
-            case .success(let exists):
-                // Note: Consider putting this in another function
-                if exists{
-                    FirestoreService.manager.removeFromFavourites(currentEvent.id, UserExperience.ticketMaster) { [weak self] result in
-                        switch result {
-                        case .failure(let error):
-                            DispatchQueue.main.async{
-                                self?.showAlert("Removal Error", error.localizedDescription)
-                            }
-                        case .success(let removed):
-                            if removed{
-                                DispatchQueue.main.async{
-                                    self?.showAlert("Unfavourited Event", nil)
-                                    eventCell.favouriteButton.setBackgroundImage(UIImage(systemName: "moon"), for: .normal)
-                                }
-                            } 
-                        }
-                    }
-                } else {
-                    self?.addToFavourites(newFavourite, eventCell, nil, nil)
-                }
-            }
-        }
+    func encounteredError(_ err: Error) {
+        showAlert("Error", err.localizedDescription)
+    }
+    
+    func addedToFavourites(_ message: String) {
+        showAlert(message, nil)
+    }
+    
+    func removedFromFavourites(_ message: String) {
+        showAlert(message, nil)
+    }
+}
 
+extension EventsViewController: RijksCellDelegate{
+    
+    func encounteredError(_ rijksCell: RijksCell, _ error: Error) {
+        showAlert("Error", error.localizedDescription)
+    }
+    
+    func addedFavourite(_ rijksCell: RijksCell, _ message: String) {
+        showAlert(message, nil)
+    }
+    
+    func removedFavourite(_ rijksCell: RijksCell, _ message: String) {
+        showAlert(message, nil)
     }
     
 }

@@ -96,7 +96,7 @@ class FirestoreService {
                 if let error = error {
                     completion(.failure(error))
                 } else if let snapshot = snapshot {
-                    let docs = snapshot.documents.compactMap{EventFavourite(using:$0.data())}.filter{$0.eventId == id}
+                    let docs = snapshot.documents.compactMap{ArtFavourite(using:$0.data())}.filter{$0.objectNumber == id}
                     if docs.count > 0 {
                         completion(.success(true))
                     } else {
@@ -124,6 +124,31 @@ class FirestoreService {
                 } else {
                     completion(.success(true))
                 }
+            }
+        }
+    }
+    
+    public func getEventFavourites(completion: @escaping (Result<[EventFavourite],Error>) -> ()){
+        guard let user = Auth.auth().currentUser else { return }
+        firestoreRef.collection(CollectionName.eventFavouritesCollection).whereField(EventFavouriteFields.favouritedById, isEqualTo: user.uid).getDocuments { (snapshot, error) in
+            if let error = error{
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let events = snapshot.documents.compactMap{EventFavourite(using:$0.data())}
+                completion(.success(events))
+            }
+        }
+    }
+    
+    public func getArtFavourites(completion: @escaping (Result<[ArtFavourite],Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        firestoreRef.collection(CollectionName.artFavouritesCollection).whereField(ArtFavouriteFields.favouritedById, isEqualTo: user.uid).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let artPieces = snapshot.documents.compactMap{ArtFavourite(using: $0.data())}
+                completion(.success(artPieces))
             }
         }
     }

@@ -20,29 +20,31 @@
                         <rect key="frame" x="8" y="8" width="325" height="299"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxu-5w-vS4">
-                        <rect key="frame" x="8" y="315" width="296" height="51"/>
+                        <rect key="frame" x="8" y="315" width="325" height="51"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mL2-ED-Kss">
-                        <rect key="frame" x="312" y="315" width="21" height="51"/>
-                        <state key="normal" image="heart" catalog="system"/>
+                        <rect key="frame" x="289" y="8" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="9y9-pk-h4q"/>
+                            <constraint firstAttribute="width" constant="44" id="fl5-rj-bB3"/>
+                        </constraints>
                     </button>
                 </subviews>
                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
-                    <constraint firstItem="mL2-ED-Kss" firstAttribute="top" secondItem="84V-Sb-gdn" secondAttribute="bottom" constant="8" id="1bc-Dt-Q94"/>
                     <constraint firstAttribute="bottom" secondItem="bxu-5w-vS4" secondAttribute="bottom" constant="8" id="28u-1l-bo0"/>
-                    <constraint firstAttribute="bottom" secondItem="mL2-ED-Kss" secondAttribute="bottom" constant="8" id="37V-qC-H7c"/>
-                    <constraint firstItem="mL2-ED-Kss" firstAttribute="leading" secondItem="bxu-5w-vS4" secondAttribute="trailing" constant="8" id="6wy-BO-ccX"/>
+                    <constraint firstAttribute="trailing" secondItem="bxu-5w-vS4" secondAttribute="trailing" constant="8" id="56O-BF-csk"/>
                     <constraint firstAttribute="trailing" secondItem="84V-Sb-gdn" secondAttribute="trailing" constant="8" id="76j-Sy-Y3f"/>
                     <constraint firstItem="84V-Sb-gdn" firstAttribute="top" secondItem="OQT-b1-97N" secondAttribute="top" constant="8" id="BFh-qY-2V0"/>
+                    <constraint firstItem="mL2-ED-Kss" firstAttribute="top" secondItem="OQT-b1-97N" secondAttribute="top" constant="8" id="Cs8-gZ-TVb"/>
                     <constraint firstItem="84V-Sb-gdn" firstAttribute="leading" secondItem="OQT-b1-97N" secondAttribute="leading" constant="8" id="D8D-gM-hDi"/>
                     <constraint firstItem="84V-Sb-gdn" firstAttribute="height" secondItem="OQT-b1-97N" secondAttribute="height" multiplier="0.8" id="PN7-VI-1Mt"/>
                     <constraint firstItem="bxu-5w-vS4" firstAttribute="top" secondItem="84V-Sb-gdn" secondAttribute="bottom" constant="8" id="fIO-p7-prA"/>
+                    <constraint firstAttribute="trailing" secondItem="mL2-ED-Kss" secondAttribute="trailing" constant="8" id="h58-Ct-0xq"/>
                     <constraint firstItem="bxu-5w-vS4" firstAttribute="leading" secondItem="OQT-b1-97N" secondAttribute="leading" constant="8" id="m3y-iw-Eh6"/>
-                    <constraint firstAttribute="trailing" secondItem="mL2-ED-Kss" secondAttribute="trailing" constant="8" id="ytJ-Gm-nqJ"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="341" height="374"/>
@@ -54,7 +56,4 @@
             <point key="canvasLocation" x="178.98550724637681" y="188.83928571428569"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="heart" catalog="system" width="64" height="54"/>
-    </resources>
 </document>

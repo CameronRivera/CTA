@@ -20,7 +20,7 @@ struct ArtPiece: Decodable{
     let hasImage: Bool
     let principalOrFirstMaker: String
     let longTitle: String
-    let webImage: WebPic
+    let webImage: WebPic?
 }
 
 struct Link: Decodable{
