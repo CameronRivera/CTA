@@ -144,7 +144,7 @@ class Unit5AssessmentTests: XCTestCase {
     
     func testAuthentication() {
         // Arrange
-        let endUserEmail = "cameron@domain.com"
+        let endUserEmail = "cameron@example.com"
         
         // Act
         guard let user = Auth.auth().currentUser else {

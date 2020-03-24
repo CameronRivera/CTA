@@ -84,12 +84,12 @@ class EventsViewController: UIViewController {
     }
     
     private func setUp(){
-        navigationItem.title = "Search Events"
         view.backgroundColor = .systemBackground
         searchBar.delegate = self
     }
     
     private func setUpTableView(){
+        navigationItem.title = "Search Events"
         searchBar.showsScopeBar = true
         searchBar.scopeButtonTitles = ["Keyword","City","Postal Code"]
         tableView.dataSource = self
@@ -100,6 +100,7 @@ class EventsViewController: UIViewController {
     }
     
     private func setUpCollectionView(){
+        navigationItem.title = "Search Rijks Museum Pieces"
         searchBar.showsScopeBar = false
         searchBar.scopeButtonTitles = []
         collectionView.dataSource = self

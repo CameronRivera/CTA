@@ -142,7 +142,6 @@ class FirestoreService {
     
     public func getArtFavourites(completion: @escaping (Result<[ArtFavourite],Error>) -> ()) {
         guard let user = Auth.auth().currentUser else { return }
-        
         firestoreRef.collection(CollectionName.artFavouritesCollection).whereField(ArtFavouriteFields.favouritedById, isEqualTo: user.uid).getDocuments { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
