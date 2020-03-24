@@ -163,6 +163,11 @@ extension FavouritesViewController: UITableViewDelegate{
         return 140
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let detailVC = DetailViewController(eventFavourites[indexPath.row], nil, userExp, true)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 extension FavouritesViewController: UICollectionViewDataSource{
@@ -191,6 +196,12 @@ extension FavouritesViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let detailVC = DetailViewController(nil, artFavourites[indexPath.row], userExp, true)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

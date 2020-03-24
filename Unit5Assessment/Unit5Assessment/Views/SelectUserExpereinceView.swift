@@ -64,7 +64,6 @@ class SelectUserExperienceView: UIView {
     private func setUpConfirmButtonConstraints(){
         addSubview(confirmButton)
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([confirmButton.topAnchor.constraint(equalTo: pickerView.bottomAnchor, constant: 20), confirmButton.centerXAnchor.constraint(equalTo: centerXAnchor), confirmButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08)])
     }
 

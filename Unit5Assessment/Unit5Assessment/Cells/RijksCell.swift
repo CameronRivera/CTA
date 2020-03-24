@@ -24,6 +24,7 @@ class RijksCell: UICollectionViewCell{
     private var artPiece: ArtPiece?
     private var artFavourite: ArtFavourite?
     private var imageURL = ""
+    private var isFavourite = false
     
     public weak var delegate: RijksCellDelegate?
     
@@ -67,10 +68,12 @@ class RijksCell: UICollectionViewCell{
             case .success(let exists):
                 if exists{
                     DispatchQueue.main.async{
+                        self?.isFavourite = true
                         self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon.fill"), for: .normal)
                     }
                 } else {
                     DispatchQueue.main.async{
+                        self?.isFavourite = false
                         self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon"), for: .normal)
                     }
                 }
@@ -83,6 +86,7 @@ class RijksCell: UICollectionViewCell{
         guard let user = Auth.auth().currentUser else { return }
         if let artPiece = artPiece{
             let newFavourite = ArtFavourite(objectNumber: artPiece.objectNumber, title: artPiece.title, maker: artPiece.principalOrFirstMaker, longTitle: artPiece.longTitle, imageURL: artPiece.webImage?.url ?? "", favouritedById: user.uid)
+            artFavourite = newFavourite
             areYouAFavourite(newFavourite)
         } else if let artFavourite = artFavourite{
             areYouAFavourite(artFavourite)
@@ -112,6 +116,7 @@ class RijksCell: UICollectionViewCell{
             case .success:
                 self?.delegate?.addedFavourite(self!, "Added Piece to Favourites")
                 self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon.fill"), for: .normal)
+                self?.isFavourite = true
             }
         }
     }
@@ -124,7 +129,16 @@ class RijksCell: UICollectionViewCell{
             case .success:
                 self?.delegate?.removedFavourite(self!, "Removed Piece from Favourites")
                 self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon"), for: .normal)
+                self?.isFavourite = false
             }
         }
+    }
+    
+    public func giveMeAFavourite() -> ArtFavourite?{
+        return artFavourite
+    }
+    
+    public func getFavouriteStatus() -> Bool{
+        return isFavourite
     }
 }

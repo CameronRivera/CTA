@@ -18,6 +18,7 @@ protocol EventCellDelegate: AnyObject{
 class EventCell: UITableViewCell {
     
     private var imageURL = ""
+    private var isFavourite = false
     private var currentEvent: Event?
     private var currentFavourite: EventFavourite?
     public weak var delegate: EventCellDelegate?
@@ -157,6 +158,7 @@ class EventCell: UITableViewCell {
         
         if let currentEvent = currentEvent{
             let newFavourite = EventFavourite(eventId: currentEvent.id, imageURL: currentEvent.images.first?.url ?? "", title: currentEvent.name, startDate: currentEvent.dates.start.localDate, favouritedById: user.uid)
+            currentFavourite = newFavourite
             areYouAFavourite(newFavourite)
         } else if let fav = currentFavourite{
             areYouAFavourite(fav)
@@ -186,6 +188,7 @@ class EventCell: UITableViewCell {
             case .success:
                 self?.delegate?.addedToFavourites("Event Added to Favourites")
                 self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon.fill"), for: .normal)
+                self?.isFavourite = true
             }
         }
     }
@@ -198,8 +201,17 @@ class EventCell: UITableViewCell {
             case .success:
                 self?.delegate?.removedFromFavourites("Event Removed from Favourites")
                 self?.favouriteButton.setBackgroundImage(UIImage(systemName: "moon"), for: .normal)
+                self?.isFavourite = false
             }
         }
+    }
+    
+    public func giveMeAFavourite() -> EventFavourite? {
+        return currentFavourite
+    }
+    
+    public func getFavouriteStatus() -> Bool{
+       return isFavourite 
     }
     
 }

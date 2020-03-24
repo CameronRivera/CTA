@@ -30,5 +30,5 @@ struct Maker: Codable{
     let placeOfDeath: String?
     let occupation: [String]
     let roles: [String]
-    let nationality: String
+    let nationality: String?
 }

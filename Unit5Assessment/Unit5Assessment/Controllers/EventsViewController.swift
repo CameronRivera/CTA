@@ -180,6 +180,16 @@ extension EventsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let currentCell = tableView.cellForRow(at: indexPath) as? EventCell, let user = Auth.auth().currentUser else {
+            return
+        }
+        let currentEvent = events[indexPath.row]
+        let eventFavourite = EventFavourite(eventId: currentEvent.id, imageURL: currentEvent.images.first?.url ?? "", title: currentEvent.name, startDate: currentEvent.dates.start.localDate, favouritedById: user.uid)
+        let detailVC = DetailViewController(eventFavourite, nil, userExp, currentCell.getFavouriteStatus())
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 extension EventsViewController: UICollectionViewDataSource{
@@ -207,6 +217,18 @@ extension EventsViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let currentCell = collectionView.cellForItem(at: indexPath) as? RijksCell, let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        let currentPiece = artPieces[indexPath.row]
+        let currentFavourite = ArtFavourite(objectNumber: currentPiece.objectNumber, title: currentPiece.title, maker: currentPiece.principalOrFirstMaker, longTitle: currentPiece.longTitle, imageURL: currentPiece.webImage?.url ?? "", favouritedById: user.uid)
+        
+        let detailVC = DetailViewController(nil, currentFavourite, userExp, currentCell.getFavouriteStatus())
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

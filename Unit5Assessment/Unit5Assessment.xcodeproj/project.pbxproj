@@ -41,6 +41,8 @@
 		C47A82582424715E00275C6C /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82572424715E00275C6C /* DateConverter.swift */; };
 		C47A825A2424FC6A00275C6C /* EventFavourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A82592424FC6A00275C6C /* EventFavourite.swift */; };
 		C47A825C2425182700275C6C /* ArtFavourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A825B2425182600275C6C /* ArtFavourite.swift */; };
+		C48944C92428F4DE00B23484 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48944C82428F4DD00B23484 /* DetailView.swift */; };
+		C48944CB2428F96200B23484 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48944CA2428F96200B23484 /* DetailViewController.swift */; };
 		C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */; };
 		C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */; };
 		C4A69425241D9C5700E6EE82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A69424241D9C5700E6EE82 /* Assets.xcassets */; };
@@ -98,6 +100,8 @@
 		C47A82572424715E00275C6C /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		C47A82592424FC6A00275C6C /* EventFavourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFavourite.swift; sourceTree = "<group>"; };
 		C47A825B2425182600275C6C /* ArtFavourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtFavourite.swift; sourceTree = "<group>"; };
+		C48944C82428F4DD00B23484 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		C48944CA2428F96200B23484 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C4A69418241D9C5300E6EE82 /* Unit5Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unit5Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -241,10 +245,10 @@
 			isa = PBXGroup;
 			children = (
 				C41FECE8241EA0AB00BFE89C /* Constants.swift */,
+				C47A82572424715E00275C6C /* DateConverter.swift */,
 				C4A69424241D9C5700E6EE82 /* Assets.xcassets */,
 				C4A6941B241D9C5300E6EE82 /* AppDelegate.swift */,
 				C4A6941D241D9C5300E6EE82 /* SceneDelegate.swift */,
-				C47A82572424715E00275C6C /* DateConverter.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -257,6 +261,7 @@
 				C41FECF5241FCD9600BFE89C /* EventsViewController.swift */,
 				C47A823F24212CB400275C6C /* SettingsViewController.swift */,
 				C47A824324215D5000275C6C /* FavouritesViewController.swift */,
+				C48944CA2428F96200B23484 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 				C41FED01241FFA2C00BFE89C /* EmptyStateView.swift */,
 				C47A823D2421298B00275C6C /* SettingsView.swift */,
 				C47A82412421592900275C6C /* FavouritesView.swift */,
+				C48944C82428F4DD00B23484 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 				C4A6941C241D9C5300E6EE82 /* AppDelegate.swift in Sources */,
 				C47A824424215D5000275C6C /* FavouritesViewController.swift in Sources */,
 				C41FECFA241FCFC900BFE89C /* EventCell.swift in Sources */,
+				C48944C92428F4DE00B23484 /* DetailView.swift in Sources */,
 				C41FECE7241E9ECD00BFE89C /* LoginView.swift in Sources */,
 				C47A824C2421986700275C6C /* DetailedArtPiece.swift in Sources */,
 				C47A82582424715E00275C6C /* DateConverter.swift in Sources */,
@@ -529,6 +536,7 @@
 				C41FED042420073600BFE89C /* SelectUserExpereinceView.swift in Sources */,
 				C47A82422421592900275C6C /* FavouritesView.swift in Sources */,
 				C41FECEB241EA0F900BFE89C /* UIViewController+Extensions.swift in Sources */,
+				C48944CB2428F96200B23484 /* DetailViewController.swift in Sources */,
 				C47A824E24219BDB00275C6C /* TicketMasterAPI.swift in Sources */,
 				C41FED02241FFA2C00BFE89C /* EmptyStateView.swift in Sources */,
 				C4A6941E241D9C5300E6EE82 /* SceneDelegate.swift in Sources */,
