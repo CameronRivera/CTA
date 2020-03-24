@@ -9,7 +9,6 @@
 import UIKit
 import FirebaseAuth
 
-// Note: Maybe place a neither case that allows us to handle errors?
 enum UserExperience: String{
     case ticketMaster = "TicketMaster"
     case rijksMuseum = "RijksMuseum"
@@ -28,7 +27,6 @@ class AuthenticationService{
             if let error = error {
                 completion(.failure(error))
             } else if let dataResult = dataResult{
-                // Note: DataResult contains a credential, could that be used with a phone log in to change phone numbers?
                 completion(.success(dataResult))
             }
         }

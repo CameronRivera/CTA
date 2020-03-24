@@ -14,10 +14,10 @@ struct DetailedEvent: Decodable{
     let id: String
     let images: [Pic]
     let dates: EventDate
-    let promoter: Promoter
-    let priceRanges: [Price]
+    let promoter: Promoter?
+    let priceRanges: [Price]?
     let accessibility: Access?
-    let ticketLimit: Limit
+    let ticketLimit: Limit?
 }
 
 struct EventDate: Decodable{

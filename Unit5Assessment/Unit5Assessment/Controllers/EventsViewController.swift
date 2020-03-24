@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class EventsViewController: UIViewController {
-    // Note: to self, make specific errors for scope. What I mean is, remember to write a valid alert error when the user searches for an event using the wrong method in the wrong scope.
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -114,9 +114,9 @@ class EventsViewController: UIViewController {
         } else if userExp == .rijksMuseum {
             RijksMuseumAPI.getPieces(query) { [weak self] result in
                 switch result{
-                case .failure(let netError):
+                case .failure:
                     DispatchQueue.main.async{
-                        self?.showAlert("Pieces Retrieval Error", "\(netError)")
+                    self?.showAlert("Invalid Search Query", "No art pieces matched your search query. Please try again using a different query.")
                     }
                 case .success(let pieces):
                     self?.artPieces = pieces
@@ -128,9 +128,9 @@ class EventsViewController: UIViewController {
     private func processURLString(_ urlString: String){
         TicketMasterAPI.getEvents(urlString) { [weak self] result in
             switch result{
-            case .failure(let netError):
+            case .failure:
                 DispatchQueue.main.async{
-                    self?.showAlert("Events Retrieval Error", "\(netError)")
+                    self?.showAlert("Invalid Search Query", "No events matched your search query. Please try again using a different query.")
                 }
             case .success(let events):
                 self?.events = events
@@ -250,6 +250,11 @@ extension EventsViewController: SettingsViewControllerDelegate{
     func userExperienceChanged(_ settingsViewController: SettingsViewController, _ newExp: UserExperience) {
         userExp = newExp
         searchBar.text = ""
+        if newExp == UserExperience.ticketMaster {
+            artPieces = []
+        } else if newExp == UserExperience.rijksMuseum {
+            events = []
+        }
     }
     
 }

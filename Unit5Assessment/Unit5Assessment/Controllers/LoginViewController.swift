@@ -66,8 +66,6 @@ class LoginViewController: UIViewController {
                                 self?.showAlert("Error Retrieving User", error.localizedDescription)
                             }
                         case .success(let user):
-                            // If the state is ticketMaster, then tableView
-                            // If the state is rijks, then collectionView
                             self?.changeScene(user)
                         }
                     }

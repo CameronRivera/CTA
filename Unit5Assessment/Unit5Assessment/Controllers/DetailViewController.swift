@@ -19,19 +19,6 @@ class DetailViewController: UIViewController {
             self.updateTheMoon(isFavourite)
         }
     }
-//
-//    private var detailedEvent: DetailedEvent?{
-//        didSet{
-//
-//        }
-//    }
-//
-//    private var detailedPiece: DetailedArtPiece?{
-//        didSet{
-//
-//        }
-//    }
-    
     
     init(_ currentEvent: EventFavourite? = nil, _ currentPiece: ArtFavourite? = nil, _ userExp: UserExperience, _ isFavourite: Bool){
         self.currentEvent = currentEvent
@@ -56,6 +43,8 @@ class DetailViewController: UIViewController {
     private func setUp(){
         updateTheMoon(isFavourite)
         view.backgroundColor = UIColor.systemBackground
+        detailView.favouriteButton.target = self
+        detailView.favouriteButton.action = #selector(theMoonWasPressed)
         navigationItem.rightBarButtonItem = detailView.favouriteButton
         if let currentEvent = currentEvent{
             getDetailedInfo(currentEvent.eventId, userExp)
@@ -94,7 +83,8 @@ class DetailViewController: UIViewController {
         DispatchQueue.main.async{
             self.navigationItem.title = artDetail.title
         }
-        detailView.imageView.getImage(artDetail.webImage?.url ?? "") { [weak self] result in
+        guard let piece = currentPiece else { return }
+        detailView.imageView.getImage(artDetail.webImage?.url ?? piece.imageURL) { [weak self] result in
             switch result {
             case .failure:
                 DispatchQueue.main.async{
@@ -126,12 +116,141 @@ Description: \(artDetail.plaqueDescriptionEnglish ?? "No description available")
     }
     
     private func setUpEvent(_ eventDetail: DetailedEvent){
+        DispatchQueue.main.async{
+            self.navigationItem.title = eventDetail.name
+        }
+        guard let event = currentEvent else { return }
+        detailView.imageView.getImage(eventDetail.images.first?.url ?? event.imageURL) { [weak self] result in
+            switch result {
+            case .failure:
+                DispatchQueue.main.async{
+                    self?.detailView.imageView.image = UIImage(systemName: "questionmark")
+                }
+            case .success(let image):
+                DispatchQueue.main.async{
+                    self?.detailView.imageView.image = image
+                }
+            }
+        }
         
+        DispatchQueue.main.async{
+            self.detailView.textView.text = """
+Event Name: \(eventDetail.name)
+            
+Start Date: \(DateConverter.makeMyStringIntoAHumanDate(eventDetail.dates.start.localDate))
+            
+"""
+            if let max = eventDetail.priceRanges?.first?.max, let min = eventDetail.priceRanges?.first?.min {
+self.detailView.textView.text += """
+                
+Prices: Tickets start from $\(String(format: "%.2f", min)) and can be as expensive as $\(String(format: "%.2f", max))
+                
+"""
+            } else {
+self.detailView.textView.text += """
+                
+Prices: Price Information unavailable
+                
+"""
+            }
+            self.detailView.textView.text += """
+            
+Ticket Limit: \(eventDetail.ticketLimit?.info ?? "No information Available")
+            
+Accessibility: \(eventDetail.accessibility?.info ?? "No accessibility information available")
+            
+Promoter: \(eventDetail.promoter?.name ?? "Promoter Name Unavailable")
+                        
+Promoter Descrition: \(eventDetail.promoter?.description ?? "Promoter Description Unavailable")
+"""
+        }
     }
     
     @objc
     private func theMoonWasPressed(_ sender: UIBarButtonItem){
-        
+        if userExp == UserExperience.ticketMaster{
+            guard let event = currentEvent else { return }
+            if isFavourite{
+                removeEventFromFavourites(event)
+            } else {
+                addEventToFavourites(event)
+            }
+        } else if userExp == UserExperience.rijksMuseum{
+            guard let piece = currentPiece else { return }
+            if isFavourite{
+                removePieceFromFavourites(piece)
+            } else {
+                addPieceToFavourites(piece)
+            }
+        }
+    }
+    
+    private func removeEventFromFavourites(_ event: EventFavourite){
+        FirestoreService.manager.removeFromFavourites(event.eventId, UserExperience.ticketMaster) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async{
+                    self?.showAlert("Removal Error", error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async{
+                    self?.showAlert("Event Removed From Favourites", nil)
+                    self?.isFavourite.toggle()
+                    self?.updateTheMoon(self!.isFavourite)
+                }
+            }
+        }
+    }
+    
+    private func addEventToFavourites(_ event: EventFavourite){
+        FirestoreService.manager.addFavourite(event, nil) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert("Favourite Event Error", error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async{
+                    self?.showAlert("Event Added to Favourites", nil)
+                    self?.isFavourite.toggle()
+                    self?.updateTheMoon(self!.isFavourite)
+                }
+            }
+        }
+    }
+    
+    private func addPieceToFavourites(_ piece: ArtFavourite){
+        FirestoreService.manager.addFavourite(nil, piece) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async{
+                    self?.showAlert("Favourite Art Piece Error", error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async{
+                    self?.showAlert("Added Piece to Favourites", nil)
+                    self?.isFavourite.toggle()
+                    self?.updateTheMoon(self!.isFavourite)
+                }
+            }
+        }
+    }
+    
+    private func removePieceFromFavourites(_ piece: ArtFavourite){
+        FirestoreService.manager.removeFromFavourites(piece.objectNumber, UserExperience.rijksMuseum) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async{
+                    self?.showAlert("Removal Error", error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async{
+                    self?.showAlert("Piece Removed From Favourites", nil)
+                    self?.isFavourite.toggle()
+                    self?.updateTheMoon(self!.isFavourite)
+                }
+            }
+        }
     }
     
     private func updateTheMoon(_ status: Bool){
