@@ -1,0 +1,31 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '13.0'
+
+# The podfile is written in Ruby (language).
+
+# This is needed to run third party libraries such as Firebase
+use_frameworks!
+
+# Create a function in Ruby: Starts with def, and ends with end
+# Underscores are convention for Ruby
+# Have the default pods for the project
+def project_pods
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Storage'
+  pod 'Kingfisher'
+end
+
+# Project currently has two targets
+# Project Target - Xcode -> new project
+# Unit Test Target
+
+target 'Unit5Assessment' do
+  # Call the project_pods function
+  project_pods
+  end
+
+target 'Unit5AssessmentTests' do
+  project_pods
+  end
